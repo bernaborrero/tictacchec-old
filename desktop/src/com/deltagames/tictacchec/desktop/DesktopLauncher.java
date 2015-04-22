@@ -7,6 +7,11 @@ import com.deltagames.tictacchec.TicTacChec;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+
+        config.title = "Tic Tac Chec";
+        config.width = 600;
+        config.height = 900;
+
 		new LwjglApplication(new TicTacChec(), config);
 	}
 }
