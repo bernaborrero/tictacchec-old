@@ -8,6 +8,10 @@ import java.util.TreeMap;
  */
 public class Piece {
 
+    public enum Color {
+        WHITE, BLACK
+    }
+
     /**
      * Coordinates
      */
