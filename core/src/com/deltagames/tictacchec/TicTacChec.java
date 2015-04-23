@@ -1,7 +1,7 @@
 package com.deltagames.tictacchec;
 
 import com.badlogic.gdx.Game;
-import com.deltagames.tictacchec.com.deltagames.tictacchec.screens.MainMenuScreen;
+import com.deltagames.tictacchec.com.deltagames.tictacchec.Screens.MainMenuScreen;
 
 public class TicTacChec extends Game {
 	

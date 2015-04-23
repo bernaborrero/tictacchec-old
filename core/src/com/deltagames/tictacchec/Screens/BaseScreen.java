@@ -1,4 +1,4 @@
-package com.deltagames.tictacchec.com.deltagames.tictacchec.screens;
+package com.deltagames.tictacchec.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
