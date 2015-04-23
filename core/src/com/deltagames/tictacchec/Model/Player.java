@@ -1,15 +1,24 @@
 package com.deltagames.tictacchec.Model;
 
 /**
- * Created by Maxi on 23/04/2015.
+ * This class helps to handle a single player
  */
     public class Player {
 
+    private String name;
     public Player(){
 
     }
 
-    public boolean hasWon(){
+    public boolean hasWon(Cheap[][] board, Coordenates cheapMoved){
+        if(cheapMoved.getX()==0){
+            int i=0;
+            boolean valid=true;
+            while(i<4&&valid){
+
+            }
+        }
+
         return false;
     }
 }
