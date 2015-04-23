@@ -5,7 +5,7 @@ package com.deltagames.tictacchec.Model;
  */
     public class Player {
 
-    private String name;
+    private String color;
     public Player(){
 
     }
