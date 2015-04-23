@@ -50,7 +50,7 @@ public abstract class Piece {
      * @param board a Piece array containing the position of all the pieces in the board
      */
     public void move(Piece[][] board) {
-
+        setPossibleMoves(null);
     }
 
     public Coordinates getCoordinates() {
