@@ -1,4 +1,6 @@
-package com.deltagames.tictacchec.Model;
+package com.deltagames.tictacchec.Model.Pieces;
+
+import com.deltagames.tictacchec.Model.Coordinates;
 
 import java.util.TreeMap;
 
@@ -17,6 +19,7 @@ public abstract class Piece {
 
     private Coordinates coordinates;
     private Color color;
+    private TreeMap<Coordinates, Boolean> possibleMoves;
 
     /**
      * Basic constructor
@@ -40,9 +43,7 @@ public abstract class Piece {
      * Retrieves the possible moves of the piece
      * @return a TreeMap containing the possible moves
      */
-    public TreeMap<Coordinates, Boolean> getPossibleMoves() {
-        return null;
-    }
+    public abstract TreeMap<Coordinates, Boolean> getValidMoves();
 
     /**
      * Move the piece
@@ -66,5 +67,13 @@ public abstract class Piece {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    protected TreeMap<Coordinates, Boolean> getPossibleMoves() {
+        return possibleMoves;
+    }
+
+    protected void setPossibleMoves(TreeMap<Coordinates, Boolean> possibleMoves) {
+        this.possibleMoves = possibleMoves;
     }
 }
