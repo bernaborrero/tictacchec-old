@@ -16,13 +16,15 @@ public class Piece {
      * Coordinates
      */
     private Coordinates coordinates;
+    private Color color;
 
     /**
      * Basic constructor
      * @param coordinates the initial coordinates of the piece
      */
-    public Piece(Coordinates coordinates) {
+    public Piece(Coordinates coordinates, Color color) {
         this.coordinates = coordinates;
+        this.color = color;
     }
 
     public boolean canMove(int x, int y) {
