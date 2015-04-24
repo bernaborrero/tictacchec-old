@@ -1,7 +1,6 @@
 package com.deltagames.tictacchec.Screens;
 
 import com.deltagames.tictacchec.TicTacChec;
-import com.deltagames.tictacchec.com.deltagames.tictacchec.Screens.BaseScreen;
 
 /**
  * Manages the main game screen

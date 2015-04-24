@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.deltagames.tictacchec.TicTacChec;
-import com.deltagames.tictacchec.com.deltagames.tictacchec.Screens.BaseScreen;
 
 /**
  * Manages the menu screen
