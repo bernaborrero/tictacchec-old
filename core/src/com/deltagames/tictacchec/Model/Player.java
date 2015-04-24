@@ -11,8 +11,15 @@ import com.deltagames.tictacchec.Model.Pieces.Piece;
         WHITE, BLACK
     }
     private Color color;
-    public Player(){
+    private byte activeCheaps;
 
+
+    public Player(){
+        activeCheaps=0;
+    }
+
+    public void setActiveCheaps(byte activeCheaps){
+        this.activeCheaps=activeCheaps;
     }
 
     public boolean hasWon(Piece[][] board, Coordinates cheapMoved){
