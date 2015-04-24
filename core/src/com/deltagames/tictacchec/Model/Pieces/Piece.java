@@ -1,5 +1,6 @@
 package com.deltagames.tictacchec.Model.Pieces;
 
+import com.deltagames.tictacchec.Model.Board;
 import com.deltagames.tictacchec.Model.Coordinates;
 
 import java.util.TreeMap;
@@ -45,13 +46,13 @@ public abstract class Piece {
      * Retrieves the possible moves of the piece
      * @return a TreeMap containing the possible moves
      */
-    public TreeMap<Coordinates, Boolean> getValidMoves(Piece[][] board) {
+    public TreeMap<Coordinates, Boolean> getValidMoves(Board board) {
         TreeMap<Coordinates, Boolean> validMoves = new TreeMap<>();
 
         if(!isInBoard()) {
-            for(int i = 0; i < board.length; i++) {
-                for(int j = 0; j < board[i].length; j++) {
-                    if(board[i][j] == null) {
+            for(int i = 0; i < Board.ROWS; i++) {
+                for(int j = 0; j < Board.COLS; j++) {
+                    if(board.get(i, j) == null) {
                         validMoves.put(new Coordinates(i, j), true);
                     }
                 }
@@ -67,7 +68,7 @@ public abstract class Piece {
      * Move the piece
      * @param board a Piece array containing the position of all the pieces in the board
      */
-    public void move(Piece[][] board) {
+    public void move(Board board) {
         setPossibleMoves(null);
     }
 

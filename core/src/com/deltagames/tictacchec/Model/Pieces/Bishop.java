@@ -1,5 +1,6 @@
 package com.deltagames.tictacchec.Model.Pieces;
 
+import com.deltagames.tictacchec.Model.Board;
 import com.deltagames.tictacchec.Model.Coordinates;
 
 import java.util.TreeMap;
@@ -21,7 +22,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public TreeMap<Coordinates, Boolean> getValidMoves(Piece[][] board) {
+    public TreeMap<Coordinates, Boolean> getValidMoves(Board board) {
         return null;
     }
 
