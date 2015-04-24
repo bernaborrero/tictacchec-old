@@ -15,6 +15,7 @@ public class Bishop extends Piece {
     /**
      * Basic constructor
      *
+     *
      * @param coordinates the initial coordinates of the piece
      * @param color
      */
