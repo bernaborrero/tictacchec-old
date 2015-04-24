@@ -43,7 +43,7 @@ public abstract class Piece {
      * Retrieves the possible moves of the piece
      * @return a TreeMap containing the possible moves
      */
-    public abstract TreeMap<Coordinates, Boolean> getValidMoves();
+    public abstract TreeMap<Coordinates, Boolean> getValidMoves(Piece[][] board);
 
     /**
      * Move the piece

@@ -21,7 +21,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public TreeMap<Coordinates, Boolean> getValidMoves() {
+    public TreeMap<Coordinates, Boolean> getValidMoves(Piece[][] board) {
         return null;
     }
 

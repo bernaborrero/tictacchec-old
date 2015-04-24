@@ -21,7 +21,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public TreeMap<Coordinates, Boolean> getValidMoves() {
+    public TreeMap<Coordinates, Boolean> getValidMoves(Piece[][] board) {
         if(getPossibleMoves() == null) {
             // calculate moves
 
