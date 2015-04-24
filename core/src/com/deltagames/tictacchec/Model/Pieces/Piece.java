@@ -2,8 +2,7 @@ package com.deltagames.tictacchec.Model.Pieces;
 
 import com.deltagames.tictacchec.Model.Board;
 import com.deltagames.tictacchec.Model.Coordinates;
-
-import java.util.TreeMap;
+import com.deltagames.tictacchec.Model.Moves;
 
 /**
  * Abstract class to manage a single piece
@@ -20,7 +19,7 @@ public abstract class Piece {
 
     private Coordinates coordinates;
     private Color color;
-    private TreeMap<Coordinates, Boolean> possibleMoves;
+    private Moves possibleMoves;
     private boolean inBoard;
 
     /**
@@ -46,14 +45,14 @@ public abstract class Piece {
      * Retrieves the possible moves of the piece
      * @return a TreeMap containing the possible moves
      */
-    public TreeMap<Coordinates, Boolean> getValidMoves(Board board) {
-        TreeMap<Coordinates, Boolean> validMoves = new TreeMap<>();
+    public Moves getValidMoves(Board board) {
+        Moves validMoves = new Moves();
 
         if(!isInBoard()) {
             for(int i = 0; i < Board.ROWS; i++) {
                 for(int j = 0; j < Board.COLS; j++) {
                     if(board.get(i, j) == null) {
-                        validMoves.put(new Coordinates(i, j), true);
+                        validMoves.add(new Coordinates(i, j));
                     }
                 }
             }
@@ -88,11 +87,11 @@ public abstract class Piece {
         this.color = color;
     }
 
-    protected TreeMap<Coordinates, Boolean> getPossibleMoves() {
+    protected Moves getPossibleMoves() {
         return possibleMoves;
     }
 
-    protected void setPossibleMoves(TreeMap<Coordinates, Boolean> possibleMoves) {
+    protected void setPossibleMoves(Moves possibleMoves) {
         this.possibleMoves = possibleMoves;
     }
 

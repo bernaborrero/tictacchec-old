@@ -2,8 +2,7 @@ package com.deltagames.tictacchec.Model.Pieces;
 
 import com.deltagames.tictacchec.Model.Board;
 import com.deltagames.tictacchec.Model.Coordinates;
-
-import java.util.TreeMap;
+import com.deltagames.tictacchec.Model.Moves;
 
 /**
  * Class to manage a pawn
@@ -34,9 +33,9 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public TreeMap<Coordinates, Boolean> getValidMoves(Board board) {
+    public Moves getValidMoves(Board board) {
         if(getPossibleMoves() == null) {
-            TreeMap<Coordinates, Boolean> validMoves = super.getValidMoves(board);
+            Moves validMoves = super.getValidMoves(board);
             if (validMoves == null) {
                 // calculate moves
 

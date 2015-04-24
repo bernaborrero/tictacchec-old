@@ -2,8 +2,7 @@ package com.deltagames.tictacchec.Model.Pieces;
 
 import com.deltagames.tictacchec.Model.Board;
 import com.deltagames.tictacchec.Model.Coordinates;
-
-import java.util.TreeMap;
+import com.deltagames.tictacchec.Model.Moves;
 
 /**
  * Class to manage a rook
@@ -22,7 +21,7 @@ public class Rook extends Piece {
     }
 
     @Override
-    public TreeMap<Coordinates, Boolean> getValidMoves(Board board) {
+    public Moves getValidMoves(Board board) {
         return null;
     }
 
