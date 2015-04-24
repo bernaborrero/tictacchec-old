@@ -20,6 +20,7 @@ public abstract class Piece {
     private Coordinates coordinates;
     private Color color;
     private TreeMap<Coordinates, Boolean> possibleMoves;
+    private boolean inBoard;
 
     /**
      * Basic constructor
@@ -28,6 +29,7 @@ public abstract class Piece {
     public Piece(Coordinates coordinates, Color color) {
         this.coordinates = coordinates;
         this.color = color;
+        this.inBoard = false;
     }
 
     /**
@@ -43,7 +45,23 @@ public abstract class Piece {
      * Retrieves the possible moves of the piece
      * @return a TreeMap containing the possible moves
      */
-    public abstract TreeMap<Coordinates, Boolean> getValidMoves(Piece[][] board);
+    public TreeMap<Coordinates, Boolean> getValidMoves(Piece[][] board) {
+        TreeMap<Coordinates, Boolean> validMoves = new TreeMap<>();
+
+        if(!isInBoard()) {
+            for(int i = 0; i < board.length; i++) {
+                for(int j = 0; j < board[i].length; j++) {
+                    if(board[i][j] == null) {
+                        validMoves.put(new Coordinates(i, j), true);
+                    }
+                }
+            }
+
+            return validMoves;
+        }
+
+        return null;
+    }
 
     /**
      * Move the piece
@@ -75,5 +93,13 @@ public abstract class Piece {
 
     protected void setPossibleMoves(TreeMap<Coordinates, Boolean> possibleMoves) {
         this.possibleMoves = possibleMoves;
+    }
+
+    public boolean isInBoard() {
+        return inBoard;
+    }
+
+    public void setInBoard(boolean inBoard) {
+        this.inBoard = inBoard;
     }
 }

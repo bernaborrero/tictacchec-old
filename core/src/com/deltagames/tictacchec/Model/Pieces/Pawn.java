@@ -23,8 +23,11 @@ public class Pawn extends Piece {
     @Override
     public TreeMap<Coordinates, Boolean> getValidMoves(Piece[][] board) {
         if(getPossibleMoves() == null) {
-            // calculate moves
+            TreeMap<Coordinates, Boolean> validMoves = super.getValidMoves(board);
+            if (validMoves == null) {
+                // calculate moves
 
+            }
 
             setPossibleMoves(null);
         }
