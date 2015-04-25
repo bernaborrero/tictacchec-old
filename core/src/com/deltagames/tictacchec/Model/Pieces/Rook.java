@@ -23,76 +23,68 @@ public class Rook extends Piece {
 
     @Override
     public Moves getValidMoves(Board board) {
+        Moves validMoves = super.getValidMoves(board);
+        if (validMoves.isEmpty()) {
+            // calculate moves
+            boolean horizontal=true;
+            boolean vertical = true;
 
-        if(getPossibleMoves() == null) {
-            Moves validMoves = super.getValidMoves(board);
-            if (validMoves == null) {
-                validMoves= new Moves();
-                // calculate moves
-                boolean horizontal=true;
-                boolean vertical = true;
+            for(int i=this.getCoordinates().getX();i<4;i++){
 
-                for(int i=this.getCoordinates().getX();i<4;i++){
+                if(horizontal){
+                    //check if the cheap is of the same player
 
-                    if(horizontal){
-                        //check if the cheap is of the same player
-
-                        if(board.get(i,this.getCoordinates().getY())!=null){
-                            horizontal=false;
-                        }else{
-                            validMoves.add(new Coordinates(i,this.getCoordinates().getY()));
-                        }
+                    if(board.get(i,this.getCoordinates().getY())!=null){
+                        horizontal=false;
+                    }else{
+                        validMoves.add(new Coordinates(i,this.getCoordinates().getY()));
                     }
-
-                }
-                horizontal=true;
-
-                for(int i=this.getCoordinates().getX();i>=0;i--){
-
-                    if(horizontal){
-                        //check if the cheap is of the same player
-                        if(board.get(i,this.getCoordinates().getY())!=null){
-                            horizontal=false;
-                        }else{
-                            validMoves.add(new Coordinates(i,this.getCoordinates().getY()));
-                        }
-                    }
-
                 }
 
-                for(int i=this.getCoordinates().getY();i<4;i++){
+            }
+            horizontal=true;
 
-                    if(vertical){
-                        //check if the cheap is of the same player
-                        if(board.get(this.getCoordinates().getX(),i)!=null){
-                            vertical=false;
-                        }else{
-                            validMoves.add(new Coordinates(this.getCoordinates().getX(),i));
-                        }
+            for(int i=this.getCoordinates().getX();i>=0;i--){
+
+                if(horizontal){
+                    //check if the cheap is of the same player
+                    if(board.get(i,this.getCoordinates().getY())!=null){
+                        horizontal=false;
+                    }else{
+                        validMoves.add(new Coordinates(i,this.getCoordinates().getY()));
                     }
-
                 }
-
-                vertical = true;
-                for(int i=this.getCoordinates().getY();i>=0;i--){
-
-                    if(vertical){
-                        //check if the cheap is of the same player
-                        if(board.get(this.getCoordinates().getX(),i)!=null){
-                            vertical=false;
-                        }else{
-                            validMoves.add(new Coordinates(this.getCoordinates().getX(),i));
-                        }
-                    }
-
-                }
-
-
-
 
             }
 
-            setPossibleMoves(null);
+            for(int i=this.getCoordinates().getY();i<4;i++){
+
+                if(vertical){
+                    //check if the cheap is of the same player
+                    if(board.get(this.getCoordinates().getX(),i)!=null){
+                        vertical=false;
+                    }else{
+                        validMoves.add(new Coordinates(this.getCoordinates().getX(),i));
+                    }
+                }
+
+            }
+
+            vertical = true;
+            for(int i=this.getCoordinates().getY();i>=0;i--){
+
+                if(vertical){
+                    //check if the cheap is of the same player
+                    if(board.get(this.getCoordinates().getX(),i)!=null){
+                        vertical=false;
+                    }else{
+                        validMoves.add(new Coordinates(this.getCoordinates().getX(),i));
+                    }
+                }
+
+            }
+
+            setPossibleMoves(validMoves);
         }
 
         return getPossibleMoves();

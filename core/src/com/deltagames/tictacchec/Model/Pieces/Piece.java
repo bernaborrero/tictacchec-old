@@ -29,6 +29,7 @@ public abstract class Piece {
     public Piece(Coordinates coordinates, Color color) {
         this.coordinates = coordinates;
         this.color = color;
+        this.possibleMoves = new Moves();
         this.inBoard = false;
     }
 
@@ -46,29 +47,31 @@ public abstract class Piece {
      * @return a TreeMap containing the possible moves
      */
     public Moves getValidMoves(Board board) {
-        Moves validMoves = new Moves();
+        Moves validMoves = getPossibleMoves();
+        if (validMoves.isEmpty() && !isInBoard()) {
 
-        if(!isInBoard()) {
-            for(int i = 0; i < Board.ROWS; i++) {
-                for(int j = 0; j < Board.COLS; j++) {
-                    if(board.get(i, j) == null) {
+            for (int i = 0; i < Board.ROWS; i++) {
+                for (int j = 0; j < Board.COLS; j++) {
+                    if (board.get(i, j) == null) {
                         validMoves.add(new Coordinates(i, j));
                     }
                 }
             }
 
-            return validMoves;
+            setPossibleMoves(validMoves);
         }
 
-        return null;
+        return getPossibleMoves();
     }
 
     /**
-     * Move the piece
-     * @param board a Piece array containing the position of all the pieces in the board
+     * Checks if a piece can kill another piece
+     * ATTENTION: this method does not take in consideration the position of the pieces
+     * @param piece the victim Piece
+     * @return true if this Piece can kill the other one, false otherwise
      */
-    public void move(Board board) {
-        setPossibleMoves(null);
+    protected boolean canOptToKill(Piece piece) {
+        return (piece != null && piece.getColor() != getColor());
     }
 
     public Coordinates getCoordinates() {

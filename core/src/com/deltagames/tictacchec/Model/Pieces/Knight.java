@@ -22,7 +22,15 @@ public class Knight extends Piece {
 
     @Override
     public Moves getValidMoves(Board board) {
-        return null;
+        Moves validMoves = super.getValidMoves(board);
+        if (validMoves.isEmpty()) {
+            // calculate moves
+
+
+            setPossibleMoves(validMoves);
+        }
+
+        return getPossibleMoves();
     }
 
 }
