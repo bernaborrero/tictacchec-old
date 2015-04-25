@@ -68,6 +68,7 @@ public class Pawn extends Piece {
     private void calculateDownToUpMoves(Board board, Moves validMoves) {
         boolean collision = false;
         Coordinates coordinates = getCoordinates();
+        Coordinates movingCoordinates = new Coordinates();
         int i = coordinates.getY();
 
         // straight, down to up
@@ -82,17 +83,17 @@ public class Pawn extends Piece {
         }
 
         // up left kill
-        Coordinates upLeftCoordinates = new Coordinates(coordinates.getX() - 1, coordinates.getY() - 1);
-        if (board.hasInBounds(upLeftCoordinates) &&
-                this.canOptToKill(board.get(upLeftCoordinates))) {
-            validMoves.add(upLeftCoordinates);
+        movingCoordinates.set(coordinates.getX() - 1, coordinates.getY() - 1);
+        if (board.hasInBounds(movingCoordinates) &&
+                this.canOptToKill(board.get(movingCoordinates))) {
+            validMoves.add(movingCoordinates);
         }
 
         // up right kill
-        Coordinates upRightCoordinates = new Coordinates(coordinates.getX() + 1, coordinates.getY() -1);
-        if (board.hasInBounds(upRightCoordinates) &&
-                this.canOptToKill(board.get(upRightCoordinates))) {
-            validMoves.add(upRightCoordinates);
+        movingCoordinates.set(coordinates.getX() + 1, coordinates.getY() -1);
+        if (board.hasInBounds(movingCoordinates) &&
+                this.canOptToKill(board.get(movingCoordinates))) {
+            validMoves.add(movingCoordinates);
         }
     }
 
@@ -104,6 +105,7 @@ public class Pawn extends Piece {
     private void calculateUpToDownMoves(Board board, Moves validMoves) {
         boolean collision = false;
         Coordinates coordinates = getCoordinates();
+        Coordinates movingCoordinates = new Coordinates();
         int i = coordinates.getY();
 
         // straight, up to down
@@ -118,17 +120,17 @@ public class Pawn extends Piece {
         }
 
         // down left kill
-        Coordinates downLeftCoordinates = new Coordinates(coordinates.getX() - 1, coordinates.getY() + 1);
-        if (board.hasInBounds(downLeftCoordinates) &&
-                this.canOptToKill(board.get(downLeftCoordinates))) {
-            validMoves.add(downLeftCoordinates);
+        movingCoordinates.set(coordinates.getX() - 1, coordinates.getY() + 1);
+        if (board.hasInBounds(movingCoordinates) &&
+                this.canOptToKill(board.get(movingCoordinates))) {
+            validMoves.add(movingCoordinates);
         }
 
         // down right kill
-        Coordinates downRightCoordinates = new Coordinates(coordinates.getX() + 1, coordinates.getY() + 1);
-        if (board.hasInBounds(downRightCoordinates) &&
-                this.canOptToKill(board.get(downRightCoordinates))) {
-            validMoves.add(downRightCoordinates);
+        movingCoordinates.set(coordinates.getX() + 1, coordinates.getY() + 1);
+        if (board.hasInBounds(movingCoordinates) &&
+                this.canOptToKill(board.get(movingCoordinates))) {
+            validMoves.add(movingCoordinates);
         }
     }
 

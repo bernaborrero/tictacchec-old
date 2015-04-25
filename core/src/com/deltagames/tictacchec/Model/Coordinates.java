@@ -6,14 +6,35 @@ package com.deltagames.tictacchec.Model;
  */
 public class Coordinates implements Comparable {
 
+    /**
+     * The x and y coordinates in the board
+     */
     private int x;
     private int y;
 
-    public Coordinates(){}
+    /**
+     * Default constructor
+     */
+    public Coordinates() { }
 
-    public Coordinates(int x, int y){
+    /**
+     * Basic constructor
+     * @param x the position in the x axis
+     * @param y the position in the y axis
+     */
+    public Coordinates(int x, int y) {
         this.setX(x);
         this.setY(y);
+    }
+
+    /**
+     * Set the position of the Coordinates
+     * @param x the new position in the x axis
+     * @param y the new position in the y axis
+     */
+    public void set(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     public int getX() {
