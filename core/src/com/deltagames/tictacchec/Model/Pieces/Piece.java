@@ -24,7 +24,8 @@ public abstract class Piece {
 
     /**
      * Basic constructor
-     * @param coordinates the initial coordinates of the piece
+     * @param coordinates the initial coordinates of the Piece
+     * @param color the Color of the Piece
      */
     public Piece(Coordinates coordinates, Color color) {
         this.coordinates = coordinates;

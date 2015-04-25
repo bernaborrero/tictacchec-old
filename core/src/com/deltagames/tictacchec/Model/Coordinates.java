@@ -37,6 +37,15 @@ public class Coordinates implements Comparable {
         this.y = y;
     }
 
+    /**
+     * Returns a copy of the input object
+     * @param coordinates the Coordinates to copy
+     * @return the new Coordinates objet
+     */
+    public static Coordinates copy(Coordinates coordinates) {
+        return new Coordinates(coordinates.getX(), coordinates.getY());
+    }
+
     public int getX() {
         return x;
     }

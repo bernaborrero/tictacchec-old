@@ -12,9 +12,8 @@ public class Knight extends Piece {
 
     /**
      * Basic constructor
-     *
-     * @param coordinates the initial coordinates of the piece
-     * @param color
+     * @param coordinates the initial coordinates of the Piece
+     * @param color the Color of the Piece
      */
     public Knight(Coordinates coordinates, Color color) {
         super(coordinates, color);

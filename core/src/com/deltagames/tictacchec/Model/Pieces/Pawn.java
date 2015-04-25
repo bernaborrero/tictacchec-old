@@ -17,9 +17,8 @@ public class Pawn extends Piece {
 
     /**
      * Basic constructor
-     *
-     * @param coordinates the initial coordinates of the piece
-     * @param color
+     * @param coordinates the initial coordinates of the Piece
+     * @param color the Color of the Piece
      */
     public Pawn(Coordinates coordinates, Color color) {
         super(coordinates, color);
@@ -69,17 +68,17 @@ public class Pawn extends Piece {
         boolean collision = false;
         Coordinates coordinates = getCoordinates();
         Coordinates movingCoordinates = new Coordinates();
-        int i = coordinates.getY();
+        int y = coordinates.getY();
 
         // straight, down to up
-        while (i > 0 && !collision) {
-            if (board.get(coordinates.getX(), i) == null) {
-                validMoves.add(new Coordinates(coordinates.getX(), i));
+        while (y > 0 && !collision) {
+            if (board.get(coordinates.getX(), y) == null) {
+                validMoves.add(new Coordinates(coordinates.getX(), y));
             } else {
                 collision = true;
             }
 
-            i--;
+            y--;
         }
 
         // up left kill
@@ -106,17 +105,17 @@ public class Pawn extends Piece {
         boolean collision = false;
         Coordinates coordinates = getCoordinates();
         Coordinates movingCoordinates = new Coordinates();
-        int i = coordinates.getY();
+        int y = coordinates.getY();
 
         // straight, up to down
-        while (i < Board.ROWS && !collision) {
-            if (board.get(coordinates.getX(), i) == null) {
-                validMoves.add(new Coordinates(coordinates.getX(), i));
+        while (y < Board.ROWS && !collision) {
+            if (board.get(coordinates.getX(), y) == null) {
+                validMoves.add(new Coordinates(coordinates.getX(), y));
             } else {
                 collision = true;
             }
 
-            i++;
+            y++;
         }
 
         // down left kill
