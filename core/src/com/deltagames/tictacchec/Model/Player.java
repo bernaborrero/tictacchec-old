@@ -1,15 +1,12 @@
 package com.deltagames.tictacchec.Model;
 
-import com.deltagames.tictacchec.Model.Pieces.Piece;
+
 
 /**
  * This class helps to handle a single player
  */
     public class Player {
 
-    public enum Color {
-        WHITE, BLACK
-    }
     private Color color;
     private int activeCheaps;
 
@@ -22,7 +19,7 @@ import com.deltagames.tictacchec.Model.Pieces.Piece;
         this.activeCheaps=activeCheaps;
     }
 
-    public boolean hasWon(Piece[][] board, Coordinates cheapMoved){
+    public boolean hasWon(Board board, Coordinates cheapMoved){
         if(checkVertically(board, cheapMoved)||checkHorizontal(board, cheapMoved)||checkDiagonal(board, cheapMoved)){
             return true;
         }
@@ -31,12 +28,12 @@ import com.deltagames.tictacchec.Model.Pieces.Piece;
     }
 
 
-    private boolean checkVertically(Piece[][] board, Coordinates cheapMoved){
+    private boolean checkVertically(Board board, Coordinates cheapMoved){
         int i=0;
         boolean valid=true;
         if(board!=null){
             while(i<4&&valid){
-                if(board[cheapMoved.getY()][i]==null || ! board[cheapMoved.getY()][i].getColor().equals(this.getColor())){
+                if(board.get(new Coordinates(cheapMoved.getY(),i))==null || board.get(new Coordinates(cheapMoved.getY(),i)).getColor()!=this.getColor()){
                     valid =false;
                 }
                 if(valid){
@@ -47,12 +44,12 @@ import com.deltagames.tictacchec.Model.Pieces.Piece;
         return valid;
     }
 
-    private boolean checkHorizontal(Piece[][] board, Coordinates cheapMoved){
+    private boolean checkHorizontal(Board board, Coordinates cheapMoved){
         int i=0;
         boolean valid=true;
         if(board!=null){
             while(i<4&&valid){
-                if(board[i][cheapMoved.getX()]==null || ! board[i][cheapMoved.getX()].getColor().equals(this.getColor())){
+                if(board.get(new Coordinates(i,cheapMoved.getX()))==null || board.get(new Coordinates(i,cheapMoved.getX())).getColor()!=this.getColor()){
                     valid =false;
                 }
                 if(valid){
@@ -64,12 +61,12 @@ import com.deltagames.tictacchec.Model.Pieces.Piece;
     }
 
 
-    private boolean checkDiagonal(Piece[][] board, Coordinates cheapMoved){
+    private boolean checkDiagonal(Board board, Coordinates cheapMoved){
         boolean valid=true;
         int i=0;
 
         while(i<4 && valid){
-            if(board[i][i]==null || !board[i][i].getColor().equals(this.getColor())){
+            if(board.get(i,i)==null || board.get(i,i).getColor()!=this.getColor()){
                 valid=false;
             }
             i++;
@@ -79,7 +76,7 @@ import com.deltagames.tictacchec.Model.Pieces.Piece;
             valid=true;
             i=3;
             while(i>=0 && valid){
-                if(board[i][i]==null ||!board[i][i].getColor().equals(this.getColor())){
+                if(board.get(i,i)==null ||board.get(i,i).getColor()!=this.getColor()){
                     valid=false;
                 }
             }

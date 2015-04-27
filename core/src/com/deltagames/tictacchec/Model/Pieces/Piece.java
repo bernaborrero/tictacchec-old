@@ -1,6 +1,7 @@
 package com.deltagames.tictacchec.Model.Pieces;
 
 import com.deltagames.tictacchec.Model.Board;
+import com.deltagames.tictacchec.Model.Color;
 import com.deltagames.tictacchec.Model.Coordinates;
 import com.deltagames.tictacchec.Model.Moves;
 
@@ -13,9 +14,7 @@ public abstract class Piece {
     /**
      * Enumeration to control the color of the piece
      */
-    public enum Color {
-        WHITE, BLACK
-    }
+
 
     private Coordinates coordinates;
     private Color color;
