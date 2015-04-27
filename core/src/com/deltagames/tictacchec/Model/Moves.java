@@ -1,12 +1,14 @@
 package com.deltagames.tictacchec.Model;
 
+import java.util.Iterator;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
  * Class to store a collection of Coordinates
  * Created by Bernabé Borrero on 24/04/15.
  */
-public class Moves {
+public class Moves implements Iterable {
 
     /**
      * The actual collection
@@ -58,6 +60,33 @@ public class Moves {
      */
     public void empty() {
         moves.clear();
+    }
+
+    @Override
+    public Iterator iterator() {
+        return new MovesIterator();
+    }
+
+    /**
+     * Class to wrap the iterations over the actual collection
+     */
+    public class MovesIterator implements Iterator {
+
+        private Iterator iterator;
+
+        public MovesIterator() {
+            iterator = moves.entrySet().iterator();
+        }
+
+        @Override
+        public boolean hasNext() {
+            return iterator.hasNext();
+        }
+
+        @Override
+        public Object next() {
+            return ((Map.Entry<Coordinates, Boolean>) iterator.next()).getKey();
+        }
     }
 
 }
