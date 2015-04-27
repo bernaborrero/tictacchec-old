@@ -1,6 +1,9 @@
-package com.deltagames.tictacchec.Model;
+package com.deltagames.tictacchec.Model.Players;
 
 
+import com.deltagames.tictacchec.Model.Board;
+import com.deltagames.tictacchec.Model.Color;
+import com.deltagames.tictacchec.Model.Coordinates;
 
 /**
  * This class helps to handle a single player
