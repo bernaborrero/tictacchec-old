@@ -35,15 +35,17 @@ public abstract class Piece {
 
     /**
      * Checks if the piece can move to a given position
+     * @param board the current Board
      * @param coordinates the coordinates where the piece wants to be moved
      * @return true if the piece can be moved, false otherwise
      */
-    public boolean canMove(Coordinates coordinates) {
-        return true;
+    public boolean canMove(Board board, Coordinates coordinates) {
+        return getValidMoves(board).hasMove(coordinates);
     }
 
     /**
      * Retrieves the possible moves of the piece
+     * @param board the current Board
      * @return a TreeMap containing the possible moves
      */
     public Moves getValidMoves(Board board) {
