@@ -11,14 +11,14 @@ import com.deltagames.tictacchec.Model.Pieces.Piece;
         WHITE, BLACK
     }
     private Color color;
-    private byte activeCheaps;
+    private int activeCheaps;
 
 
     public Player(){
         activeCheaps=0;
     }
 
-    public void setActiveCheaps(byte activeCheaps){
+    public void setActiveCheaps(int  activeCheaps){
         this.activeCheaps=activeCheaps;
     }
 
