@@ -13,15 +13,15 @@ import java.util.concurrent.Semaphore;
 public abstract class Player {
 
     private Color color;
-    private int activeCheaps;
+    private int activePieces;
 
 
     public Player() {
-        activeCheaps = 0;
+        activePieces = 0;
     }
 
-    public void setActiveCheaps(int activeCheaps) {
-        this.activeCheaps = activeCheaps;
+    public void setActivePieces(int activePieces) {
+        this.activePieces = activePieces;
     }
 
     public boolean hasWon(Board board, Coordinates cheapMoved) {

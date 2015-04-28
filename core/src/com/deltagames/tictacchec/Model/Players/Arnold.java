@@ -37,6 +37,7 @@ public class Arnold extends Player {
                 // calculations
 
 
+
                 blockingSemaphore.release();
             } catch (InterruptedException e) {
                 Gdx.app.log(ARNOLD_TAG, "Whoops! I can't block the UI!");
