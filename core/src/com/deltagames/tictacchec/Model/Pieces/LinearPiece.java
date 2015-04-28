@@ -1,8 +1,11 @@
 package com.deltagames.tictacchec.Model.Pieces;
 
 import com.deltagames.tictacchec.Model.Board;
+import com.deltagames.tictacchec.Model.Color;
 import com.deltagames.tictacchec.Model.Coordinates;
+import com.deltagames.tictacchec.Model.Move;
 import com.deltagames.tictacchec.Model.Moves;
+import com.deltagames.tictacchec.Model.Players.Player;
 
 /**
  * Class to manage the linear pieces (Bishop and Rook)
@@ -28,8 +31,8 @@ public abstract class LinearPiece extends Piece {
      * @param coordinates the initial coordinates of the Piece
      * @param color the Color of the Piece
      */
-    public LinearPiece(Coordinates coordinates, Color color) {
-        super(coordinates, color);
+    public LinearPiece(Player player, Coordinates coordinates, Color color) {
+        super(player, coordinates, color);
         directions = new Direction[] {};
     }
 
@@ -64,7 +67,7 @@ public abstract class LinearPiece extends Piece {
 
         while (board.hasInBounds(movingCoordinates) && !collision) {
             if (this.canOptToKill(board.get(movingCoordinates))) {
-                validMoves.add(movingCoordinates);
+                validMoves.add(new Move(this, movingCoordinates, getPlayer().getWeightForCoordinates(movingCoordinates)));
                 setDirectionCoordinates(movingCoordinates, direction);
             } else {
                 collision = true;

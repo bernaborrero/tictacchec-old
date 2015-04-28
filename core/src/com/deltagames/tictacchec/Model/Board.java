@@ -13,6 +13,7 @@ public class Board {
      */
     public static final int ROWS = 4;
     public static final int COLS = 4;
+    public static final int DIAGONAL_CELLS = 4; // This value is needed for Arnold, and added here for awareness (ROWS & COLS must be equal)
 
     /**
      * The actual board array

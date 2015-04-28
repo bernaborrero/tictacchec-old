@@ -1,6 +1,8 @@
 package com.deltagames.tictacchec.Model.Pieces;
 
+import com.deltagames.tictacchec.Model.Color;
 import com.deltagames.tictacchec.Model.Coordinates;
+import com.deltagames.tictacchec.Model.Players.Player;
 
 /**
  * Class to manage a bishop
@@ -13,8 +15,8 @@ public class Bishop extends LinearPiece {
      * @param coordinates the initial coordinates of the Piece
      * @param color the Color of the Piece
      */
-    public Bishop(Coordinates coordinates, Color color) {
-        super(coordinates, color);
+    public Bishop(Player player, Coordinates coordinates, Color color) {
+        super(player, coordinates, color);
         setDirections(new Direction[]{
                 Direction.UP_LEFT, Direction.UP_RIGHT, Direction.DOWN_RIGHT, Direction.DOWN_LEFT
         });

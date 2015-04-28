@@ -1,8 +1,11 @@
 package com.deltagames.tictacchec.Model.Pieces;
 
 import com.deltagames.tictacchec.Model.Board;
+import com.deltagames.tictacchec.Model.Color;
 import com.deltagames.tictacchec.Model.Coordinates;
+import com.deltagames.tictacchec.Model.Move;
 import com.deltagames.tictacchec.Model.Moves;
+import com.deltagames.tictacchec.Model.Players.Player;
 
 /**
  * Class to manage a pawn
@@ -20,8 +23,8 @@ public class Pawn extends Piece {
      * @param coordinates the initial coordinates of the Piece
      * @param color the Color of the Piece
      */
-    public Pawn(Coordinates coordinates, Color color) {
-        super(coordinates, color);
+    public Pawn(Player player, Coordinates coordinates, Color color) {
+        super(player, coordinates, color);
 
         setInitialRightDirection(coordinates);
     }
@@ -73,7 +76,8 @@ public class Pawn extends Piece {
         // straight, down to up
         while (y > 0 && !collision) {
             if (board.get(coordinates.getX(), y) == null) {
-                validMoves.add(new Coordinates(coordinates.getX(), y));
+                Coordinates cords = new Coordinates(coordinates.getX(), y);
+                validMoves.add(new Move(this, cords, getPlayer().getWeightForCoordinates(cords)));
             } else {
                 collision = true;
             }
@@ -85,14 +89,14 @@ public class Pawn extends Piece {
         movingCoordinates.set(coordinates.getX() - 1, coordinates.getY() - 1);
         if (board.hasInBounds(movingCoordinates) &&
                 this.canOptToKill(board.get(movingCoordinates))) {
-            validMoves.add(movingCoordinates);
+            validMoves.add(new Move(this, movingCoordinates, getPlayer().getWeightForCoordinates(movingCoordinates)));
         }
 
         // up right kill
         movingCoordinates.set(coordinates.getX() + 1, coordinates.getY() -1);
         if (board.hasInBounds(movingCoordinates) &&
                 this.canOptToKill(board.get(movingCoordinates))) {
-            validMoves.add(movingCoordinates);
+            validMoves.add(new Move(this, movingCoordinates, getPlayer().getWeightForCoordinates(movingCoordinates)));
         }
     }
 
@@ -110,7 +114,8 @@ public class Pawn extends Piece {
         // straight, up to down
         while (y < Board.ROWS && !collision) {
             if (board.get(coordinates.getX(), y) == null) {
-                validMoves.add(new Coordinates(coordinates.getX(), y));
+                Coordinates cords = new Coordinates(coordinates.getX(), y);
+                validMoves.add(new Move(this, cords, getPlayer().getWeightForCoordinates(cords)));
             } else {
                 collision = true;
             }
@@ -122,14 +127,14 @@ public class Pawn extends Piece {
         movingCoordinates.set(coordinates.getX() - 1, coordinates.getY() + 1);
         if (board.hasInBounds(movingCoordinates) &&
                 this.canOptToKill(board.get(movingCoordinates))) {
-            validMoves.add(movingCoordinates);
+            validMoves.add(new Move(this, movingCoordinates, getPlayer().getWeightForCoordinates(movingCoordinates)));
         }
 
         // down right kill
         movingCoordinates.set(coordinates.getX() + 1, coordinates.getY() + 1);
         if (board.hasInBounds(movingCoordinates) &&
                 this.canOptToKill(board.get(movingCoordinates))) {
-            validMoves.add(movingCoordinates);
+            validMoves.add(new Move(this, movingCoordinates, getPlayer().getWeightForCoordinates(movingCoordinates)));
         }
     }
 

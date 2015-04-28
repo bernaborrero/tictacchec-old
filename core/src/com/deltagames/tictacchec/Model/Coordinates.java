@@ -38,6 +38,22 @@ public class Coordinates implements Comparable {
     }
 
     /**
+     * Retrieve in which diagonal is present the current coordinates
+     * @return 0 if they are in the main diagonal, 1 if they are in the reversed diagonal, -1 otherwise
+     */
+    public int getDiagonalNumber() {
+        if (getX() == getY()) {
+            return 0;
+        }
+        else if (getX() == (Board.COLS - 1 - getY())) {
+            return 1;
+        }
+        else {
+            return -1;
+        }
+    }
+
+    /**
      * Returns a copy of the input object
      * @param coordinates the Coordinates to copy
      * @return the new Coordinates objet

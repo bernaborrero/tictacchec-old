@@ -1,6 +1,8 @@
 package com.deltagames.tictacchec.Model.Pieces;
 
+import com.deltagames.tictacchec.Model.Color;
 import com.deltagames.tictacchec.Model.Coordinates;
+import com.deltagames.tictacchec.Model.Players.Player;
 
 /**
  * Class to manage a rook
@@ -15,8 +17,8 @@ public class Rook extends LinearPiece {
      * @param coordinates the initial coordinates of the Piece
      * @param color       the Color of the Piece
      */
-    public Rook(Coordinates coordinates, Color color) {
-        super(coordinates, color);
+    public Rook(Player player, Coordinates coordinates, Color color) {
+        super(player, coordinates, color);
         setDirections(new Direction[]{
                 Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT
         });

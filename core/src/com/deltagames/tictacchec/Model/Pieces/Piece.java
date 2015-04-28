@@ -3,7 +3,9 @@ package com.deltagames.tictacchec.Model.Pieces;
 import com.deltagames.tictacchec.Model.Board;
 import com.deltagames.tictacchec.Model.Color;
 import com.deltagames.tictacchec.Model.Coordinates;
+import com.deltagames.tictacchec.Model.Move;
 import com.deltagames.tictacchec.Model.Moves;
+import com.deltagames.tictacchec.Model.Players.Player;
 
 /**
  * Abstract class to manage a single piece
@@ -11,11 +13,7 @@ import com.deltagames.tictacchec.Model.Moves;
  */
 public abstract class Piece {
 
-    /**
-     * Enumeration to control the color of the piece
-     */
-
-
+    private Player player;
     private Coordinates coordinates;
     private Color color;
     private Moves possibleMoves;
@@ -26,7 +24,8 @@ public abstract class Piece {
      * @param coordinates the initial coordinates of the Piece
      * @param color the Color of the Piece
      */
-    public Piece(Coordinates coordinates, Color color) {
+    public Piece(Player player, Coordinates coordinates, Color color) {
+        this.player = player;
         this.coordinates = coordinates;
         this.color = color;
         this.possibleMoves = new Moves();
@@ -41,6 +40,7 @@ public abstract class Piece {
      */
     public boolean canMove(Board board, Coordinates coordinates) {
         return getValidMoves(board).hasMove(coordinates);
+        // TODO: fix this method
     }
 
     /**
@@ -55,7 +55,8 @@ public abstract class Piece {
             for (int i = 0; i < Board.ROWS; i++) {
                 for (int j = 0; j < Board.COLS; j++) {
                     if (board.get(i, j) == null) {
-                        validMoves.add(new Coordinates(i, j));
+                        Coordinates cords = new Coordinates(i, j);
+                        validMoves.add(new Move(this, cords, player.getWeightForCoordinates(cords)));
                     }
                 }
             }
@@ -74,6 +75,14 @@ public abstract class Piece {
      */
     protected boolean canOptToKill(Piece piece) {
         return (piece != null && piece.getColor() != getColor());
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     public Coordinates getCoordinates() {

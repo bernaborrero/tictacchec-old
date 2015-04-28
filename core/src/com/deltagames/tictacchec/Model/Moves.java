@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * Class to store a collection of Coordinates
+ * Class to store a collection of Moves
  * Created by Bernabé Borrero on 24/04/15.
  */
 public class Moves implements Iterable {
@@ -13,30 +13,30 @@ public class Moves implements Iterable {
     /**
      * The actual collection
      */
-    private TreeMap<Coordinates, Boolean> moves;
+    private TreeMap<Move, Boolean> moves;
 
     /**
      * Basic constructor
      */
     public Moves() {
-        moves = new TreeMap<Coordinates, Boolean>();
+        moves = new TreeMap<Move, Boolean>();
     }
 
     /**
      * Add a new value to the collection
-     * @param coordinates the new coordinates to store
+     * @param move the new move to store
      */
-    public void add(Coordinates coordinates) {
-        moves.put(coordinates, true);
+    public void add(Move move) {
+        moves.put(move, true);
     }
 
     /**
-     * Checks if the collection contains a pair of coordinates
-     * @param coordinates the coordinates to check
-     * @return true if the collection contains the coordinates, false otherwise
+     * Checks if the collection contains a move
+     * @param move the move to check
+     * @return true if the collection contains the move, false otherwise
      */
-    public boolean hasMove(Coordinates coordinates) {
-        return moves.containsKey(coordinates);
+    public boolean hasMove(Move move) {
+        return moves.containsKey(move);
     }
 
     /**
@@ -85,7 +85,7 @@ public class Moves implements Iterable {
 
         @Override
         public Object next() {
-            return ((Map.Entry<Coordinates, Boolean>) iterator.next()).getKey();
+            return ((Map.Entry<Move, Boolean>) iterator.next()).getKey();
         }
     }
 

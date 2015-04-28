@@ -1,8 +1,11 @@
 package com.deltagames.tictacchec.Model.Pieces;
 
 import com.deltagames.tictacchec.Model.Board;
+import com.deltagames.tictacchec.Model.Color;
 import com.deltagames.tictacchec.Model.Coordinates;
+import com.deltagames.tictacchec.Model.Move;
 import com.deltagames.tictacchec.Model.Moves;
+import com.deltagames.tictacchec.Model.Players.Player;
 
 /**
  * Class to manage a knight
@@ -15,8 +18,8 @@ public class Knight extends Piece {
      * @param coordinates the initial coordinates of the Piece
      * @param color the Color of the Piece
      */
-    public Knight(Coordinates coordinates, Color color) {
-        super(coordinates, color);
+    public Knight(Player player, Coordinates coordinates, Color color) {
+        super(player, coordinates, color);
     }
 
     @Override
@@ -41,7 +44,7 @@ public class Knight extends Piece {
                 movingCoordinates.set(pairOfCoordinates[0], pairOfCoordinates[1]);
                 if (board.hasInBounds(movingCoordinates) &&
                         this.canOptToKill(board.get(movingCoordinates))) {
-                    validMoves.add(movingCoordinates);
+                    validMoves.add(new Move(this, movingCoordinates, getPlayer().getWeightForCoordinates(movingCoordinates)));
                 }
             }
 
