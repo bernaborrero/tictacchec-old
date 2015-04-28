@@ -4,6 +4,7 @@ package com.deltagames.tictacchec.Model.Players;
 import com.deltagames.tictacchec.Model.Board;
 import com.deltagames.tictacchec.Model.Color;
 import com.deltagames.tictacchec.Model.Coordinates;
+import com.deltagames.tictacchec.Model.Moves;
 
 import java.util.concurrent.Semaphore;
 
@@ -13,7 +14,7 @@ import java.util.concurrent.Semaphore;
 public abstract class Player {
 
     private Color color;
-    private int activePieces;
+    private int activePieces;   // TODO: update activePieces when a piece is put on the board or killed (handle killing logic!)
 
     /**
      * Current state of the Player's pieces in the board (used by Arnold)
@@ -34,11 +35,22 @@ public abstract class Player {
         this.activePieces = activePieces;
     }
 
+    public Moves getMoves() {
+        // TODO: implement this method
+
+
+        return null;
+    }
+
     /**
      * Check if the player has won
      * @return true if the player has won, false otherwise
      */
     public boolean hasWon() {
+
+        if (activePieces == Board.ROWS) {
+            return true;
+        }
 
         for (int y = 0; y < Board.ROWS; y++) {
             if (getHorizontalWeight(y) == Board.ROWS) {

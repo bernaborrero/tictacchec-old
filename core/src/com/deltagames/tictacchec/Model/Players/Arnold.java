@@ -72,12 +72,12 @@ public class Arnold extends Player {
                 }
             }
 
-            Moves moves = currentPlayer.getMoves(board); // TODO: this method returns a collection containing all the valid moves of all the pieces of the player, with their weight set
+            Moves moves = currentPlayer.getMoves();
 
             if (maximizingPlayer) {
                 for (Move move : moves) {
-                    alpha = max(alpha, alphabeta(board, arnold, human, move, depth - 1, alpha, beta, false));
-                    if (beta <= alpha) {
+                    alpha = max(alpha, alphabeta(board, arnold, human, move, depth - 1, alpha, beta, false)); // TODO: implement this method
+                    if (beta.getWeight() <= alpha.getWeight()) {
                         break;
                     }
                 }
@@ -91,8 +91,8 @@ public class Arnold extends Player {
             else {
 
                 for (Move move : moves) {
-                    beta = min(beta, alphabeta(board, arnold, human, move, depth - 1, alpha, beta, true));
-                    if (beta <= alpha) {
+                    beta = min(beta, alphabeta(board, arnold, human, move, depth - 1, alpha, beta, true)); // TODO: implement this method
+                    if (beta.getWeight() <= alpha.getWeight()) {
                         break;
                     }
                 }
