@@ -16,6 +16,13 @@ public class Board {
     public static final int DIAGONAL_CELLS = 4; // This value is needed for Arnold, and added here for awareness (ROWS & COLS must be equal)
 
     /**
+     * Convenience method for deciding in which diagonal a Piece is
+     */
+    public enum Diagonal {
+        MAIN_DIAGONAL, REVERSED_DIAGONAL, NO_DIAGONAL
+    }
+
+    /**
      * The actual board array
      */
     private Piece[][] board;
@@ -53,8 +60,7 @@ public class Board {
      * @param y the new position in the y axis
      */
     public void set(Piece piece, int x, int y) {
-        board[x][y] = piece;
-        piece.setCoordinates(new Coordinates(x, y));
+        set(piece, new Coordinates(x, y));
     }
 
     /**
@@ -64,6 +70,7 @@ public class Board {
      */
     public void set(Piece piece, Coordinates coordinates) {
         board[coordinates.getX()][coordinates.getY()] = piece;
+        board[piece.getCoordinates().getX()][piece.getCoordinates().getY()] = null;
         piece.setCoordinates(coordinates);
     }
 

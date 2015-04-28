@@ -39,8 +39,7 @@ public abstract class Piece {
      * @return true if the piece can be moved, false otherwise
      */
     public boolean canMove(Board board, Coordinates coordinates) {
-        return getValidMoves(board).hasMove(coordinates);
-        // TODO: fix this method
+        return getValidMoves(board).hasCoordinateInMoves(coordinates);
     }
 
     /**
@@ -90,6 +89,7 @@ public abstract class Piece {
     }
 
     public void setCoordinates(Coordinates coordinates) {
+        getPlayer().changeWeightForCoordinates(this.getCoordinates(), coordinates);
         this.coordinates = coordinates;
     }
 

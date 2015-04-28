@@ -31,12 +31,20 @@ public class Moves implements Iterable {
     }
 
     /**
-     * Checks if the collection contains a move
-     * @param move the move to check
-     * @return true if the collection contains the move, false otherwise
+     * Checks if there is a Move in the collection with the specified Coordinates
+     * @param coordinates the Coordinates to check
+     * @return true if some Move has the Coordinates specified, false otherwise
      */
-    public boolean hasMove(Move move) {
-        return moves.containsKey(move);
+    public boolean hasCoordinateInMoves(Coordinates coordinates) {
+        Iterator iterator = iterator();
+        while (iterator.hasNext()) {
+            Move move = ((Map.Entry<Move, Boolean>) iterator.next()).getKey();
+            if (move.getCoordinates().compareTo(coordinates) == 0) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

@@ -2,6 +2,7 @@ package com.deltagames.tictacchec.Model.Players;
 
 import com.badlogic.gdx.Gdx;
 import com.deltagames.tictacchec.Model.Board;
+import com.deltagames.tictacchec.Model.Coordinates;
 import com.deltagames.tictacchec.Model.Move;
 import com.deltagames.tictacchec.Model.Moves;
 
@@ -59,33 +60,47 @@ public class Arnold extends Player {
         private Move alphabeta(Board board, Player arnold, Player human, Move node, int depth, Move alpha, Move beta, boolean maximizingPlayer) {
 
             Player currentPlayer = maximizingPlayer ? arnold : human;
+            Coordinates previousCoordinates = null;
 
-            Board virtualBoard = board.copy();
-            virtualBoard.set(piece, node); // TODO: change the sumatory values of the piece for that player
+            if (node != null) {
+                previousCoordinates = node.getPiece().getCoordinates();
+                board.set(node.getPiece(), node.getCoordinates());
 
-            if (virtualBoard.hasWon(currentPlayer) || depth == 0) {
-                return coordinates;
+                if (currentPlayer.hasWon() || depth == 0) {
+                    board.set(node.getPiece(), previousCoordinates); // go back to previous state
+                    return node;
+                }
             }
 
-            Moves moves = currentPlayer.getWeighedMoves(virtualBoard); // TODO: this method returns a collection containing all the valid moves of all the pieces of the player, with their weight set
+            Moves moves = currentPlayer.getMoves(board); // TODO: this method returns a collection containing all the valid moves of all the pieces of the player, with their weight set
 
             if (maximizingPlayer) {
                 for (Move move : moves) {
-                    alpha = max(alpha, alphabeta(virtualBoard, arnold, human, move, depth - 1, alpha, beta, false));
+                    alpha = max(alpha, alphabeta(board, arnold, human, move, depth - 1, alpha, beta, false));
                     if (beta <= alpha) {
                         break;
                     }
                 }
+
+                if (previousCoordinates != null) {
+                    board.set(node.getPiece(), previousCoordinates); // go back to previous state
+                }
+
                 return alpha;
             }
             else {
 
                 for (Move move : moves) {
-                    beta = min(beta, alphabeta(virtualBoard, arnold, human, move, depth - 1, alpha, beta, true));
+                    beta = min(beta, alphabeta(board, arnold, human, move, depth - 1, alpha, beta, true));
                     if (beta <= alpha) {
                         break;
                     }
                 }
+
+                if (previousCoordinates != null) {
+                    board.set(node.getPiece(), previousCoordinates); // go back to previous state
+                }
+
                 return beta;
             }
         }

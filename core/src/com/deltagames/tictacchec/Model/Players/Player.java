@@ -34,71 +34,32 @@ public abstract class Player {
         this.activePieces = activePieces;
     }
 
-    // TODO: move this method to the board
-    public boolean hasWon(Board board, Coordinates pieceMoved) {
-        if (checkVertically(board, pieceMoved) || checkHorizontal(board, pieceMoved) || checkDiagonal(board, pieceMoved)) {
-            return true;
+    /**
+     * Check if the player has won
+     * @return true if the player has won, false otherwise
+     */
+    public boolean hasWon() {
+
+        for (int y = 0; y < Board.ROWS; y++) {
+            if (getHorizontalWeight(y) == Board.ROWS) {
+                return true;
+            }
+        }
+
+        for (int x = 0; x < Board.COLS; x++) {
+            if (getVerticalWeight(x) == Board.COLS) {
+                return true;
+            }
+        }
+
+        Board.Diagonal[] diagonals = new Board.Diagonal[]{Board.Diagonal.MAIN_DIAGONAL, Board.Diagonal.REVERSED_DIAGONAL};
+        for (Board.Diagonal diagonal : diagonals) {
+            if (getDiagonalWeight(diagonal) == Board.DIAGONAL_CELLS) {
+                return true;
+            }
         }
 
         return false;
-    }
-
-
-    private boolean checkVertically(Board board, Coordinates pieceMoved) {
-        int i = 0;
-        boolean valid = true;
-        if (board != null) {
-            while (i < 4 && valid) {
-                if (board.get(new Coordinates(pieceMoved.getY(), i)) == null || board.get(new Coordinates(pieceMoved.getY(), i)).getColor() != this.getColor()) {
-                    valid = false;
-                }
-                if (valid) {
-                    i++;
-                }
-            }
-        }
-        return valid;
-    }
-
-    private boolean checkHorizontal(Board board, Coordinates pieceMoved) {
-        int i = 0;
-        boolean valid = true;
-        if (board != null) {
-            while (i < 4 && valid) {
-                if (board.get(new Coordinates(i, pieceMoved.getX())) == null || board.get(new Coordinates(i, pieceMoved.getX())).getColor() != this.getColor()) {
-                    valid = false;
-                }
-                if (valid) {
-                    i++;
-                }
-            }
-        }
-        return valid;
-    }
-
-    private boolean checkDiagonal(Board board, Coordinates pieceMoved) {
-        boolean valid = true;
-        int i = 0;
-
-        while (i < 4 && valid) {
-            if (board.get(i, i) == null || board.get(i, i).getColor() != this.getColor()) {
-                valid = false;
-            }
-            i++;
-        }
-
-        if (!valid) {
-            valid = true;
-            i = 3;
-            while (i >= 0 && valid) {
-                if (board.get(i, i) == null || board.get(i, i).getColor() != this.getColor()) {
-                    valid = false;
-                }
-            }
-            return valid;
-        } else {
-            return valid;
-        }
     }
 
     /**
@@ -107,44 +68,64 @@ public abstract class Player {
      * @return the importance of a move from any piece to the specified Coordinates
      */
     public int getWeightForCoordinates(Coordinates coordinates) {
-        int weight = getHorizontalWeight(coordinates) + getVerticalWeight(coordinates);
+        int weight = getHorizontalWeight(coordinates.getY()) + getVerticalWeight(coordinates.getX());
 
-        int diagonalNumber = coordinates.getDiagonalNumber();
-        if (diagonalNumber != -1) {
-            weight += getDiagonalWeight(diagonalNumber);
+        Board.Diagonal diagonal = coordinates.getDiagonalNumber();
+        if (diagonal != Board.Diagonal.NO_DIAGONAL) {
+            weight += getDiagonalWeight(diagonal);
         }
 
         return weight;
     }
 
-    private int getHorizontalWeight(Coordinates coordinates) {
+    private int getHorizontalWeight(int y) {
         int sum = 0;
 
-        for (int value : getHorizontalPositions(coordinates.getY())) {
+        for (int value : getHorizontalPositions(y)) {
             sum += value;
         }
 
         return sum;
     }
 
-    private int getVerticalWeight(Coordinates coordinates) {
+    private int getVerticalWeight(int x) {
         int sum = 0;
 
-        for (int value : getVerticalPositions(coordinates.getX())) {
+        for (int value : getVerticalPositions(x)) {
             sum += value;
         }
 
         return sum;
     }
 
-    private int getDiagonalWeight(int diagonalNumber) {
+    private int getDiagonalWeight(Board.Diagonal diagonal) {
         int sum = 0;
 
-        for (int value : getDiagonalPositions(diagonalNumber)) {
+        for (int value : getDiagonalPositions(diagonal)) {
             sum += value;
         }
 
         return sum;
+    }
+
+    /**
+     * Change the weight of some Coordinates from origin to destination
+     * @param origin the origin position
+     * @param destination the destination
+     */
+    public void changeWeightForCoordinates(Coordinates origin, Coordinates destination) {
+        setHorizontalPosition(origin.getX(), origin.getY(), 0);
+        setHorizontalPosition(destination.getX(), destination.getY(), 1);
+
+        setVerticalPosition(origin.getX(), origin.getY(), 0);
+        setVerticalPosition(destination.getX(), destination.getY(), 1);
+
+
+        setDiagonalPosition(Board.Diagonal.MAIN_DIAGONAL, origin.getX(), 0);
+        setDiagonalPosition(Board.Diagonal.MAIN_DIAGONAL, destination.getX(), 1);
+
+        setDiagonalPosition(Board.Diagonal.REVERSED_DIAGONAL, origin.getX(), 0);
+        setDiagonalPosition(Board.Diagonal.REVERSED_DIAGONAL, destination.getX(), 1);
     }
 
     /**
@@ -168,7 +149,21 @@ public abstract class Player {
         return verticalPositions[x];
     }
 
-    private int[] getDiagonalPositions(int diagonalNumber) {
+    private int[] getDiagonalPositions(Board.Diagonal diagonal) {
+        int diagonalNumber = (diagonal == Board.Diagonal.MAIN_DIAGONAL) ? 1 : 0;
         return diagonalPositions[diagonalNumber];
+    }
+
+    private void setHorizontalPosition(int x, int y, int value) {
+        horizontalPositions[y][x]  = value;
+    }
+
+    private void setVerticalPosition(int x, int y, int value) {
+        verticalPositions[x][y] = value;
+    }
+
+    private void setDiagonalPosition(Board.Diagonal diagonal, int pos, int value) {
+        int diagonalNumber = (diagonal == Board.Diagonal.MAIN_DIAGONAL) ? 1 : 0;
+        diagonalPositions[diagonalNumber][pos] = value;
     }
 }

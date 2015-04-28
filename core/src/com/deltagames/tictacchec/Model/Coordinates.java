@@ -41,15 +41,15 @@ public class Coordinates implements Comparable {
      * Retrieve in which diagonal is present the current coordinates
      * @return 0 if they are in the main diagonal, 1 if they are in the reversed diagonal, -1 otherwise
      */
-    public int getDiagonalNumber() {
+    public Board.Diagonal getDiagonalNumber() {
         if (getX() == getY()) {
-            return 0;
+            return Board.Diagonal.MAIN_DIAGONAL;
         }
         else if (getX() == (Board.COLS - 1 - getY())) {
-            return 1;
+            return Board.Diagonal.REVERSED_DIAGONAL;
         }
         else {
-            return -1;
+            return Board.Diagonal.NO_DIAGONAL;
         }
     }
 
