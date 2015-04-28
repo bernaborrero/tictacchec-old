@@ -24,8 +24,8 @@ public abstract class Player {
         this.activePieces = activePieces;
     }
 
-    public boolean hasWon(Board board, Coordinates cheapMoved) {
-        if (checkVertically(board, cheapMoved) || checkHorizontal(board, cheapMoved) || checkDiagonal(board, cheapMoved)) {
+    public boolean hasWon(Board board, Coordinates pieceMoved) {
+        if (checkVertically(board, pieceMoved) || checkHorizontal(board, pieceMoved) || checkDiagonal(board, pieceMoved)) {
             return true;
         }
 
@@ -33,12 +33,12 @@ public abstract class Player {
     }
 
 
-    private boolean checkVertically(Board board, Coordinates cheapMoved) {
+    private boolean checkVertically(Board board, Coordinates pieceMoved) {
         int i = 0;
         boolean valid = true;
         if (board != null) {
             while (i < 4 && valid) {
-                if (board.get(new Coordinates(cheapMoved.getY(), i)) == null || board.get(new Coordinates(cheapMoved.getY(), i)).getColor() != this.getColor()) {
+                if (board.get(new Coordinates(pieceMoved.getY(), i)) == null || board.get(new Coordinates(pieceMoved.getY(), i)).getColor() != this.getColor()) {
                     valid = false;
                 }
                 if (valid) {
@@ -49,12 +49,12 @@ public abstract class Player {
         return valid;
     }
 
-    private boolean checkHorizontal(Board board, Coordinates cheapMoved) {
+    private boolean checkHorizontal(Board board, Coordinates pieceMoved) {
         int i = 0;
         boolean valid = true;
         if (board != null) {
             while (i < 4 && valid) {
-                if (board.get(new Coordinates(i, cheapMoved.getX())) == null || board.get(new Coordinates(i, cheapMoved.getX())).getColor() != this.getColor()) {
+                if (board.get(new Coordinates(i, pieceMoved.getX())) == null || board.get(new Coordinates(i, pieceMoved.getX())).getColor() != this.getColor()) {
                     valid = false;
                 }
                 if (valid) {
@@ -66,7 +66,7 @@ public abstract class Player {
     }
 
 
-    private boolean checkDiagonal(Board board, Coordinates cheapMoved) {
+    private boolean checkDiagonal(Board board, Coordinates pieceMoved) {
         boolean valid = true;
         int i = 0;
 
@@ -97,7 +97,7 @@ public abstract class Player {
      * @param board             the current Board
      * @param blockingSemaphore a Semaphore to control the state of the game
      */
-    public abstract void move(Board board, Semaphore blockingSemaphore);
+    public abstract void move(Board board, Player enemy, Semaphore blockingSemaphore);
 
 
     public Color getColor() {
