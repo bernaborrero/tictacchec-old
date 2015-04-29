@@ -28,14 +28,40 @@ public class Board {
     private Piece[][] board;
 
     /**
+     * position of the board in the screen
+     */
+    private int positionX;
+    private int positionY;
+    private int endPositionX;
+    private int endPositionY;
+
+    /**
+     * size of each cell in the board
+     */
+    private int cellWidth;
+    private int cellHeight;
+
+    /**
      * Basic constructor
      */
     public Board() {
         board = new Piece[COLS][ROWS];
     }
 
+
+    public Board(int positionX, int positionY, int endPositionX, int endPositionY) {
+        this();
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.endPositionX = endPositionX;
+        this.endPositionY = endPositionY;
+        this.cellWidth = (endPositionX - positionX) / 4;
+        this.cellHeight = (endPositionY - positionY) / 4;
+    }
+
     /**
      * Returns a piece given its x and y position
+     *
      * @param x the position in the x axis
      * @param y the position in the y axis
      * @return the Piece in the specified position, or null if the position is empty
@@ -46,6 +72,7 @@ public class Board {
 
     /**
      * Returns a piece given its coordinates
+     *
      * @param coordinates the coordinates of the piece to retrieve
      * @return the Piece in the specified coordinates, or null if position is empty
      */
@@ -55,9 +82,10 @@ public class Board {
 
     /**
      * Changes the position of the piece in the board
+     *
      * @param piece the Piece to move
-     * @param x the new position in the x axis
-     * @param y the new position in the y axis
+     * @param x     the new position in the x axis
+     * @param y     the new position in the y axis
      */
     public void set(Piece piece, int x, int y) {
         set(piece, new Coordinates(x, y));
@@ -65,7 +93,8 @@ public class Board {
 
     /**
      * Changes the position of the piece in the board
-     * @param piece the Piece to move
+     *
+     * @param piece       the Piece to move
      * @param coordinates the new Coordinates of the piece in the board
      */
     public void set(Piece piece, Coordinates coordinates) {
@@ -78,6 +107,7 @@ public class Board {
 
     /**
      * Checks if a pair of Coordinates are in the bounds of the board
+     *
      * @param coordinates the Coordinates to check
      * @return true if the Coordinates are in bounds of the board, false otherwise
      */
@@ -86,4 +116,36 @@ public class Board {
                 coordinates.getY() >= 0 && coordinates.getY() < Board.ROWS);
     }
 
+
+    /**
+     * get the equivalent of the screen coordinates in a position in the board
+     *
+     * @param screenX
+     * @param screenY
+     * @return The content of the cell in the board
+     */
+    public Piece coordinatesToPiece(int screenX, int screenY) {
+        if (boardIsTouched(screenX, screenY)) {
+
+            return get(new Coordinates(screenX / cellWidth, screenY / cellHeight));
+        } else {
+            return null;
+        }
+
+    }
+
+    /**
+     * check if the user has touched inside the board limits
+     *
+     * @param screenX
+     * @param screenY
+     * @return true if the screen coordinates are between the board coordinates
+     */
+    private boolean boardIsTouched(int screenX, int screenY) {
+        if ((screenX > positionX && screenX < endPositionX) && (screenY > positionY && screenY < endPositionY)) {
+            return true;
+        }
+
+        return false;
+    }
 }
