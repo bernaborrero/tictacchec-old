@@ -61,7 +61,7 @@ public class Arnold extends Player {
          * MiniMax with alpha beta to get the best Move
          * @param board the current Board
          * @param arnold Arnold
-         * @param human the Human
+         * @param human the HumanPlayer
          * @param node the current Move
          * @param depth the exhaustivity of the algorithm
          * @param alpha the lowest Move
