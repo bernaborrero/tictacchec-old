@@ -42,4 +42,6 @@ public class Move {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+
 }

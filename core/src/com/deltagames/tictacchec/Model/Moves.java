@@ -36,10 +36,8 @@ public class Moves implements Iterable {
      * @return true if some Move has the Coordinates specified, false otherwise
      */
     public boolean hasCoordinateInMoves(Coordinates coordinates) {
-        Iterator iterator = iterator();
-        while (iterator.hasNext()) {
-            Move move = ((Map.Entry<Move, Boolean>) iterator.next()).getKey();
-            if (move.getCoordinates().compareTo(coordinates) == 0) {
+        for (Object o : this) {
+            if (((Move) o).getCoordinates().compareTo(coordinates) == 0) {
                 return true;
             }
         }

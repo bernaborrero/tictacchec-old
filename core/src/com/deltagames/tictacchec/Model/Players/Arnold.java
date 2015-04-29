@@ -45,11 +45,11 @@ public class Arnold extends Player {
                 blockingSemaphore.acquire();
 
                 // calculations
-                Move minInfinite = new Move();
-                Move maxInfinite = new Move();
+                Move minInfinite = new Move(null, null, -100000);
+                Move maxInfinite = new Move(null, null, +100000);
 
                 Move move = alphabeta(board, arnold, enemy, null, EXHAUSTIVE_LEVELS, minInfinite, maxInfinite, true);
-
+                // TODO: do something with this Move (move piece in Board, etc)
 
                 blockingSemaphore.release();
             } catch (InterruptedException e) {
@@ -57,6 +57,18 @@ public class Arnold extends Player {
             }
         }
 
+        /**
+         * MiniMax with alpha beta to get the best Move
+         * @param board the current Board
+         * @param arnold Arnold
+         * @param human the Human
+         * @param node the current Move
+         * @param depth the exhaustivity of the algorithm
+         * @param alpha the lowest Move
+         * @param beta the highest Move
+         * @param maximizingPlayer true if the current Player is the maximizing one (Arnold or not)
+         * @return the best Move
+         */
         private Move alphabeta(Board board, Player arnold, Player human, Move node, int depth, Move alpha, Move beta, boolean maximizingPlayer) {
 
             Player currentPlayer = maximizingPlayer ? arnold : human;
@@ -72,11 +84,11 @@ public class Arnold extends Player {
                 }
             }
 
-            Moves moves = currentPlayer.getMoves();
+            Moves moves = currentPlayer.getMoves(board);
 
             if (maximizingPlayer) {
-                for (Move move : moves) {
-                    alpha = max(alpha, alphabeta(board, arnold, human, move, depth - 1, alpha, beta, false)); // TODO: implement this method
+                for (Object move : moves) {
+                    alpha = max(alpha, alphabeta(board, arnold, human, (Move) move, depth - 1, alpha, beta, false));
                     if (beta.getWeight() <= alpha.getWeight()) {
                         break;
                     }
@@ -90,8 +102,8 @@ public class Arnold extends Player {
             }
             else {
 
-                for (Move move : moves) {
-                    beta = min(beta, alphabeta(board, arnold, human, move, depth - 1, alpha, beta, true)); // TODO: implement this method
+                for (Object move : moves) {
+                    beta = min(beta, alphabeta(board, arnold, human, (Move) move, depth - 1, alpha, beta, true));
                     if (beta.getWeight() <= alpha.getWeight()) {
                         break;
                     }
@@ -103,6 +115,26 @@ public class Arnold extends Player {
 
                 return beta;
             }
+        }
+
+        /**
+         * Retrieves the Move with the highest weight
+         * @param m1 the first Move
+         * @param m2 the second Move
+         * @return the Move with the highest weight, or the first one if they are equal
+         */
+        private Move max(Move m1, Move m2) {
+            return (m1.getWeight() >= m2.getWeight()) ? m1 : m2;
+        }
+
+        /**
+         * Retrieves the Move with the lowest weight
+         * @param m1 the first Move
+         * @param m2 the second Move
+         * @return the Move with the lowest weight, or the first one if they are equal
+         */
+        private Move min(Move m1, Move m2) {
+            return (m1.getWeight() <= m2.getWeight()) ? m1 : m2;
         }
 
     }

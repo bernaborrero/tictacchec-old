@@ -4,7 +4,9 @@ package com.deltagames.tictacchec.Model.Players;
 import com.deltagames.tictacchec.Model.Board;
 import com.deltagames.tictacchec.Model.Color;
 import com.deltagames.tictacchec.Model.Coordinates;
+import com.deltagames.tictacchec.Model.Move;
 import com.deltagames.tictacchec.Model.Moves;
+import com.deltagames.tictacchec.Model.Pieces.Piece;
 
 import java.util.concurrent.Semaphore;
 
@@ -12,6 +14,14 @@ import java.util.concurrent.Semaphore;
  * This class helps to handle a single player
  */
 public abstract class Player {
+
+    public static final int PIECES_BY_PLAYER = 4;
+
+    /**
+     * The Pieces of the Player
+     */
+    Piece[] pieces;
+    Moves moves;
 
     private Color color;
     private int activePieces;   // TODO: update activePieces when a piece is put on the board or killed (handle killing logic!)
@@ -24,7 +34,10 @@ public abstract class Player {
     private int[][] diagonalPositions;
 
     public Player() {
+        pieces = new Piece[PIECES_BY_PLAYER];
         activePieces = 0;
+
+        moves = new Moves();
 
         horizontalPositions = new int[Board.ROWS][Board.COLS];
         verticalPositions = new int[Board.COLS][Board.ROWS];
@@ -35,11 +48,28 @@ public abstract class Player {
         this.activePieces = activePieces;
     }
 
-    public Moves getMoves() {
-        // TODO: implement this method
+    /**
+     * Retrieves all the Moves of all the Pieces of the current Player
+     * @param board the current Board
+     * @return all the Moves the Player can do, with all his/her Pieces
+     */
+    public Moves getMoves(Board board) {
+        if (moves.isEmpty()) {
+            for (Piece piece : getPieces()) {
+                for (Object pieceMove : piece.getValidMoves(board)) {
+                    moves.add((Move) pieceMove);
+                }
+            }
+        }
 
+        return moves;
+    }
 
-        return null;
+    /**
+     * Reset the Moves the Player can do
+     */
+    public void emptyMoves() {
+        moves.empty();
     }
 
     /**
@@ -148,6 +178,13 @@ public abstract class Player {
      */
     public abstract void move(Board board, Player enemy, Semaphore blockingSemaphore);
 
+    public Piece[] getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(Piece[] pieces) {
+        this.pieces = pieces;
+    }
 
     public Color getColor() {
         return this.color;
