@@ -49,7 +49,7 @@ public class Arnold extends Player {
                 Move maxInfinite = new Move(null, null, +100000);
 
                 Move move = alphabeta(board, arnold, enemy, null, EXHAUSTIVE_LEVELS, minInfinite, maxInfinite, true);
-                // TODO: do something with this Move (move piece in Board, etc)
+                board.set(move.getPiece(), move.getCoordinates());
 
                 blockingSemaphore.release();
             } catch (InterruptedException e) {
