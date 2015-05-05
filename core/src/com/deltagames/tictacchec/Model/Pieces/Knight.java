@@ -1,11 +1,11 @@
 package com.deltagames.tictacchec.Model.Pieces;
 
-import com.deltagames.tictacchec.Model.Board;
-import com.deltagames.tictacchec.Model.Color;
-import com.deltagames.tictacchec.Model.Coordinates;
-import com.deltagames.tictacchec.Model.Move;
-import com.deltagames.tictacchec.Model.Moves;
+import com.deltagames.tictacchec.Model.Board.Board;
+import com.deltagames.tictacchec.Model.Board.Coordinates;
+import com.deltagames.tictacchec.Model.Board.Move;
+import com.deltagames.tictacchec.Model.Board.Moves;
 import com.deltagames.tictacchec.Model.Players.Player;
+import com.deltagames.tictacchec.Model.Utils.Color;
 
 /**
  * Class to manage a knight

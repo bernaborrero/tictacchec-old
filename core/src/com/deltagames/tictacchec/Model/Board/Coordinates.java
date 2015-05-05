@@ -1,4 +1,4 @@
-package com.deltagames.tictacchec.Model;
+package com.deltagames.tictacchec.Model.Board;
 
 /**
  * Class to store a pair of coordinates

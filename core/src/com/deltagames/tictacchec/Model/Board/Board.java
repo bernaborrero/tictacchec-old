@@ -1,4 +1,4 @@
-package com.deltagames.tictacchec.Model;
+package com.deltagames.tictacchec.Model.Board;
 
 import com.deltagames.tictacchec.Model.Pieces.Piece;
 

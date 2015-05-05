@@ -1,8 +1,8 @@
 package com.deltagames.tictacchec.Listeners;
 
 import com.badlogic.gdx.InputAdapter;
-import com.deltagames.tictacchec.Model.Board;
-import com.deltagames.tictacchec.Model.Moves;
+import com.deltagames.tictacchec.Model.Board.Board;
+import com.deltagames.tictacchec.Model.Board.Board.Moves;
 import com.deltagames.tictacchec.Model.Pieces.Piece;
 import com.deltagames.tictacchec.Model.Players.Player;
 

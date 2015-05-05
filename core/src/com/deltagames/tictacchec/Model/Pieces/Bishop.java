@@ -1,7 +1,7 @@
 package com.deltagames.tictacchec.Model.Pieces;
 
-import com.deltagames.tictacchec.Model.Color;
-import com.deltagames.tictacchec.Model.Coordinates;
+import com.deltagames.tictacchec.Model.Utils.Color;
+import com.deltagames.tictacchec.Model.Board.Coordinates;
 import com.deltagames.tictacchec.Model.Players.Player;
 
 /**

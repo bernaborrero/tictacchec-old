@@ -1,10 +1,10 @@
 package com.deltagames.tictacchec.Model.Players;
 
 import com.badlogic.gdx.Gdx;
-import com.deltagames.tictacchec.Model.Board;
-import com.deltagames.tictacchec.Model.Coordinates;
-import com.deltagames.tictacchec.Model.Move;
-import com.deltagames.tictacchec.Model.Moves;
+import com.deltagames.tictacchec.Model.Board.Board;
+import com.deltagames.tictacchec.Model.Board.Coordinates;
+import com.deltagames.tictacchec.Model.Board.Move;
+import com.deltagames.tictacchec.Model.Board.Moves;
 
 import java.util.concurrent.Semaphore;
 

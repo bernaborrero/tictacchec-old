@@ -1,4 +1,4 @@
-package com.deltagames.tictacchec.Model;
+package com.deltagames.tictacchec.Model.Board;
 
 import java.util.Iterator;
 import java.util.Map;

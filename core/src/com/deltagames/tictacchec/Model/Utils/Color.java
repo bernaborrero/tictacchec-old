@@ -1,4 +1,4 @@
-package com.deltagames.tictacchec.Model;
+package com.deltagames.tictacchec.Model.Utils;
 
 /**
  * Created by Maxi on 27/04/2015.
