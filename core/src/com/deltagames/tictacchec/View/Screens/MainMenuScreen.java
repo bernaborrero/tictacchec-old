@@ -1,14 +1,16 @@
-package com.deltagames.tictacchec.Screens;
+package com.deltagames.tictacchec.View.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.deltagames.tictacchec.TicTacChec;
+import com.deltagames.tictacchec.View.Utils.HDButton;
 
 /**
  * Manages the menu screen
@@ -19,8 +21,13 @@ public class MainMenuScreen extends BaseScreen {
     private Stage stage;
     private Table table;
 
-    private Skin skin;
-    private Label titleLabel;
+    private SpriteBatch spriteBatch;
+    private Texture backgroundTexture;
+    private Sprite backgroundSprite;
+
+    private final String MENU_TITLE = "Tic Tac Chec";
+    HDButton menuTitle;
+
     private TextButton playWithComputerButton, playWithPersonButton, exitButton;
 
     public MainMenuScreen(TicTacChec game) {
@@ -28,14 +35,20 @@ public class MainMenuScreen extends BaseScreen {
         stage = new Stage();
         table = new Table();
 
-        skin = new Skin(Gdx.files.internal("skins/default.json"));
+        spriteBatch = new SpriteBatch();
 
-        titleLabel = new Label("Tic Tac Chec", skin);
-        playWithComputerButton = new TextButton("Play With Computer", skin);
-        playWithPersonButton = new TextButton("Play With Another Person", skin);
-        exitButton = new TextButton("Exit", skin);
+        playWithComputerButton = new TextButton("Play With Computer", getSkin());
+        playWithPersonButton = new TextButton("Play With Another Person", getSkin());
+        exitButton = new TextButton("Exit", getSkin());
 
         setUpListeners();
+
+        backgroundTexture = new Texture(Gdx.files.internal("img/background.jpg"));
+        backgroundSprite = new Sprite(backgroundTexture);
+        backgroundSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        float fontY = (Gdx.graphics.getHeight() - getFont("albas").getBounds(MENU_TITLE).height / 2) - (40 * Gdx.graphics.getDensity());
+        menuTitle = new HDButton(getFont("albas"), MENU_TITLE, true, fontY);
     }
 
     /**
@@ -69,16 +82,23 @@ public class MainMenuScreen extends BaseScreen {
     public void render(float delta) {
         super.render(delta);
 
+        spriteBatch.begin();
+        backgroundSprite.draw(spriteBatch);
+
+        menuTitle.draw(spriteBatch);
+
+        spriteBatch.end();
+
         stage.act();
         stage.draw();
     }
 
     @Override
     public void show() {
-        table.add(titleLabel).padBottom(40).row();
-        table.add(playWithComputerButton).size(150, 60).padBottom(20).row();
-        table.add(playWithPersonButton).size(150, 60).padBottom(20).row();
-        table.add(exitButton).size(150, 60).padBottom(20).row();
+
+        table.add(playWithComputerButton).size(150 * Gdx.graphics.getDensity(), 60 * Gdx.graphics.getDensity()).padBottom(20 * Gdx.graphics.getDensity()).row();
+        table.add(playWithPersonButton).size(150 * Gdx.graphics.getDensity(), 60 * Gdx.graphics.getDensity()).padBottom(20 * Gdx.graphics.getDensity()).row();
+        table.add(exitButton).size(150 * Gdx.graphics.getDensity(), 60 * Gdx.graphics.getDensity()).padBottom(20 * Gdx.graphics.getDensity()).row();
 
         table.setFillParent(true);
         stage.addActor(table);
@@ -88,7 +108,6 @@ public class MainMenuScreen extends BaseScreen {
 
     @Override
     public void dispose() {
-        skin.dispose();
         stage.dispose();
     }
 }
