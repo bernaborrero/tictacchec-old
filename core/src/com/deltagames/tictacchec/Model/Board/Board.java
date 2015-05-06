@@ -102,7 +102,6 @@ public class Board {
         board[piece.getCoordinates().getX()][piece.getCoordinates().getY()] = null;
         piece.setCoordinates(coordinates);
         piece.getPlayer().emptyMoves();
-        // TODO: the last line is very bad for performance. It'd be cool to reset the moves of only the moved piece
     }
 
     /**

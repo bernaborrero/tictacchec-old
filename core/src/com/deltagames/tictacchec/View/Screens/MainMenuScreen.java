@@ -87,6 +87,8 @@ public class MainMenuScreen extends BaseScreen {
 
         menuTitle.draw(spriteBatch);
 
+        // TODO: change menu items like the title, add listener support, etc.
+
         spriteBatch.end();
 
         stage.act();
