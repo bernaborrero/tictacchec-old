@@ -2,6 +2,7 @@ package com.deltagames.tictacchec.View.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,6 +19,8 @@ public class GameScreen extends BaseScreen {
         COMPUTER, PERSON
     }
 
+    BitmapFont theBoldFont;
+
     private Stage stage;
     private Table table;
     private SpriteBatch spriteBatch;
@@ -25,10 +28,11 @@ public class GameScreen extends BaseScreen {
     private Texture boardTexture;
     private Sprite boardSprite;
 
-    public GameScreen(TicTacChec game, GameMode gameMode) {
+    public GameScreen(TicTacChec game, GameMode gameMode, BitmapFont theBoldFont) {
         super(game);
-        initComponents();
+        this.theBoldFont = theBoldFont;
 
+        initComponents();
     }
 
     private void initComponents() {
@@ -51,6 +55,10 @@ public class GameScreen extends BaseScreen {
     }
 
 
+    @Override
+    public void show() {
+
+    }
 
     @Override
     public void render(float delta) {
@@ -61,6 +69,21 @@ public class GameScreen extends BaseScreen {
         spriteBatch.end();
         stage.act();
         stage.draw();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
     }
 
 
