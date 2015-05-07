@@ -19,8 +19,28 @@ public abstract class BaseScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(228.0f / 255, 219.0f / 255, 191.0f / 255, 1.0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+
+    public TicTacChec getGame() {
+        return game;
+    }
+
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
+
+    @Override
+    public void pause() {
+
     }
 
     @Override
@@ -28,8 +48,13 @@ public abstract class BaseScreen implements Screen {
         dispose();
     }
 
-    public TicTacChec getGame() {
-        return game;
+    @Override
+    public void resume() {
+
     }
 
+    @Override
+    public void dispose() {
+
+    }
 }

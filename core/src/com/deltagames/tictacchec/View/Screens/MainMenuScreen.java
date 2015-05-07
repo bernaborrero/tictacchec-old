@@ -4,9 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.deltagames.tictacchec.TicTacChec;
@@ -19,11 +17,9 @@ import com.deltagames.tictacchec.View.Utils.HDFont;
  */
 public class MainMenuScreen extends BaseScreen {
 
-    BitmapFont albasFont, theBoldFont;
+    BitmapFont titleFont, normalFont;
 
     private SpriteBatch spriteBatch;
-    private Texture backgroundTexture;
-    private Sprite backgroundSprite;
 
     private final String MENU_TITLE = "Tic Tac Chec";
     private HDButton menuTitle, playWithComputerButton, playWithPersonButton, exitButton;
@@ -35,37 +31,36 @@ public class MainMenuScreen extends BaseScreen {
 
         spriteBatch = new SpriteBatch();
 
-        backgroundTexture = new Texture(Gdx.files.internal("img/background.jpg"));
-        backgroundSprite = new Sprite(backgroundTexture);
-        backgroundSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        float fontY = (Gdx.graphics.getHeight() - titleFont.getBounds(MENU_TITLE).height / 2) - (40 * Gdx.graphics.getDensity());
+        menuTitle = new HDButton(titleFont, MENU_TITLE, true, fontY);
 
-        float fontY = (Gdx.graphics.getHeight() - albasFont.getBounds(MENU_TITLE).height / 2) - (40 * Gdx.graphics.getDensity());
-        menuTitle = new HDButton(albasFont, MENU_TITLE, true, fontY);
-
-        playWithComputerButton = new HDButton(theBoldFont, "Play With Computer", true, fontY - (180 * Gdx.graphics.getDensity()));
-        playWithPersonButton = new HDButton(theBoldFont, "Play Against Person", true, fontY - (280 * Gdx.graphics.getDensity()));
-        exitButton = new HDButton(theBoldFont, "Exit", true, fontY - (380 * Gdx.graphics.getDensity()));
+        playWithComputerButton = new HDButton(normalFont, "Play With Computer", true, fontY - (180 * Gdx.graphics.getDensity()));
+        playWithPersonButton = new HDButton(normalFont, "Play Against Person", true, fontY - (280 * Gdx.graphics.getDensity()));
+        exitButton = new HDButton(normalFont, "Exit", true, fontY - (380 * Gdx.graphics.getDensity()));
     }
 
     /**
      * Set up the fonts for this screen
      */
     private void setUpFonts() {
-        int albasFontSize, theBoldFontSize;
+        int titleFontSize, normalFontSize;
 
         if (Gdx.app.getType() == Application.ApplicationType.Android) {
-            albasFontSize = 150;
-            theBoldFontSize = 90;
+            titleFontSize = 180;
+            normalFontSize = 90;
         } else {
-            albasFontSize = 75;
-            theBoldFontSize = 40;
+            titleFontSize = 100;
+            normalFontSize = 40;
         }
 
-        FreeTypeFontGenerator albasGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/albas.ttf"));
-        FreeTypeFontGenerator theBoldFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/theboldfont.ttf"));
+        FreeTypeFontGenerator titleFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/birdsOfParadise.ttf"));
+        FreeTypeFontGenerator normalFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/theBoldFont.ttf"));
 
-        albasFont = HDFont.getFont(albasGenerator, albasFontSize, new Color(0.0f / 255, 119.0f / 255, 6.0f / 255, 1.0f));
-        theBoldFont = HDFont.getFont(theBoldFontGenerator, theBoldFontSize, new Color(216.0f / 255, 1.0f, 207.0f / 255, 1.0f));
+        titleFont = HDFont.getFont(titleFontGenerator, titleFontSize, new Color(112.0f / 255, 171.0f / 255, 143.0f / 255, 1.0f));
+        normalFont = HDFont.getFont(normalFontGenerator, normalFontSize, new Color(220.0f / 255, 91.0f / 255, 33.0f / 255, 1.0f));
+
+        titleFontGenerator.dispose();
+        normalFontGenerator.dispose();
     }
 
     @Override
@@ -73,7 +68,6 @@ public class MainMenuScreen extends BaseScreen {
         super.render(delta);
 
         spriteBatch.begin();
-        backgroundSprite.draw(spriteBatch);
 
         menuTitle.draw(spriteBatch);
 
@@ -85,30 +79,15 @@ public class MainMenuScreen extends BaseScreen {
     }
 
     @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
     public void show() {
         Gdx.input.setInputProcessor(new InputAdapter() {
             @Override
             public boolean touchUp(int screenX, int screenY, int pointer, int button) {
                 if (playWithComputerButton.isClicked(screenX, screenY)) {
-                    getGame().setScreen(new GameScreen(getGame(), GameScreen.GameMode.COMPUTER, theBoldFont));
+                    getGame().setScreen(new GameScreen(getGame(), GameScreen.GameMode.COMPUTER, normalFont));
                 }
                 else if (playWithPersonButton.isClicked(screenX, screenY)) {
-                    getGame().setScreen(new GameScreen(getGame(), GameScreen.GameMode.PERSON, theBoldFont));
+                    getGame().setScreen(new GameScreen(getGame(), GameScreen.GameMode.PERSON, normalFont));
                 }
                 else if (exitButton.isClicked(screenX, screenY)) {
                     Gdx.app.exit();
@@ -121,7 +100,6 @@ public class MainMenuScreen extends BaseScreen {
 
     @Override
     public void dispose() {
-        albasFont.dispose();
-        backgroundTexture.dispose();
+        titleFont.dispose();
     }
 }

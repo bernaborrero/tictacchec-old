@@ -24,7 +24,7 @@ public class GameScreen extends BaseScreen {
     }
 
     //fonts
-    BitmapFont theBoldFont;
+    BitmapFont normalFont;
 
     //main components
     private Stage stage;
@@ -39,9 +39,9 @@ public class GameScreen extends BaseScreen {
     private Player player1;
     private Player player2;
 
-    public GameScreen(TicTacChec game, GameMode gameMode, BitmapFont theBoldFont) {
+    public GameScreen(TicTacChec game, GameMode gameMode, BitmapFont normalFont) {
         super(game);
-        this.theBoldFont = theBoldFont;
+        this.normalFont = normalFont;
 
         initComponents();
         initPlayers(gameMode);
@@ -133,12 +133,6 @@ public class GameScreen extends BaseScreen {
         return new Texture(Gdx.files.internal(texture));
     }
 
-
-    @Override
-    public void show() {
-
-    }
-
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -149,22 +143,6 @@ public class GameScreen extends BaseScreen {
         stage.act();
         stage.draw();
     }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
 
     @Override
     public void dispose() {
