@@ -2,10 +2,14 @@ package com.deltagames.tictacchec.Model.Players;
 
 
 import com.deltagames.tictacchec.Model.Board.Board;
+import com.deltagames.tictacchec.Model.Board.Coordinates;
 import com.deltagames.tictacchec.Model.Board.Move;
 import com.deltagames.tictacchec.Model.Board.Moves;
-import com.deltagames.tictacchec.Model.Board.Coordinates;
+import com.deltagames.tictacchec.Model.Pieces.Bishop;
+import com.deltagames.tictacchec.Model.Pieces.Knight;
+import com.deltagames.tictacchec.Model.Pieces.Pawn;
 import com.deltagames.tictacchec.Model.Pieces.Piece;
+import com.deltagames.tictacchec.Model.Pieces.Rook;
 import com.deltagames.tictacchec.Model.Utils.Color;
 
 import java.util.concurrent.Semaphore;
@@ -215,4 +219,12 @@ public abstract class Player {
         int diagonalNumber = (diagonal == Board.Diagonal.MAIN_DIAGONAL) ? 1 : 0;
         diagonalPositions[diagonalNumber][pos] = value;
     }
+
+    public void createPieces(){
+        pieces[0]= new Pawn(this,new Coordinates(),this.getColor());
+        pieces[1]= new Bishop(this,new Coordinates(),this.getColor());
+        pieces[2]= new Knight(this,new Coordinates(),this.getColor());
+        pieces[3]= new Rook(this,new Coordinates(),this.getColor());
+    }
+
 }

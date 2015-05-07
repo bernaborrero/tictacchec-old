@@ -10,13 +10,15 @@ import com.deltagames.tictacchec.Model.Players.Player;
  */
 public class Bishop extends LinearPiece {
 
+    private final static String IMAGE_PATH="img/Bishop.jpg";
     /**
      * Basic constructor
      * @param coordinates the initial coordinates of the Piece
      * @param color the Color of the Piece
      */
+
     public Bishop(Player player, Coordinates coordinates, Color color) {
-        super(player, coordinates, color);
+        super(player, coordinates, color, IMAGE_PATH);
         setDirections(new Direction[]{
                 Direction.UP_LEFT, Direction.UP_RIGHT, Direction.DOWN_RIGHT, Direction.DOWN_LEFT
         });

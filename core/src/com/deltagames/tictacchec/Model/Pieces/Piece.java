@@ -139,4 +139,8 @@ public abstract class Piece {
     public void draw(SpriteBatch batch){
         sprite.draw(batch);
     }
+
+    public void dispose(){
+        sprite.getTexture().dispose();
+    }
 }

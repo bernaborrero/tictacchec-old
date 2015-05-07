@@ -18,13 +18,15 @@ public class Pawn extends Piece {
      */
     private boolean rightDirection;
 
+    private final static String IMAGE_PATH="img/Pawn.jpg";
+
     /**
      * Basic constructor
      * @param coordinates the initial coordinates of the Piece
      * @param color the Color of the Piece
      */
     public Pawn(Player player, Coordinates coordinates, Color color) {
-        super(player, coordinates, color);
+        super(player, coordinates, color, IMAGE_PATH);
 
         setInitialRightDirection(coordinates);
     }
