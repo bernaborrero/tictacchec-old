@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.deltagames.tictacchec.TicTacChec;
 import com.deltagames.tictacchec.View.Utils.HDFont;
 
-import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -23,26 +22,32 @@ public abstract class BaseScreen implements Screen {
     private TicTacChec game;
 
     private Skin skin;
-    private TreeMap<String, FreeTypeFontGenerator> fontGenerator;
     private TreeMap<String, BitmapFont> fonts;
 
     public BaseScreen(TicTacChec game) {
         this.game = game;
         skin = new Skin(Gdx.files.internal("skins/default.json"));
-        fontGenerator = new TreeMap<String, FreeTypeFontGenerator>();
         fonts = new TreeMap<String, BitmapFont>();
 
-        fontGenerator.put("albas", new FreeTypeFontGenerator(Gdx.files.internal("fonts/albas.ttf")));
-        int fontSize;
+        int albasFontSize, theBoldFontSize;
 
         if (Gdx.app.getType() == Application.ApplicationType.Android) {
             skin.getFont("default-font").setScale(Gdx.graphics.getDensity(), Gdx.graphics.getDensity());
-            fontSize = 150;
+            albasFontSize = 150;
+            theBoldFontSize = 90;
         } else {
-            fontSize = 75;
+            albasFontSize = 75;
+            theBoldFontSize = 40;
         }
 
-        fonts.put("albas", HDFont.getFont(getFontGenerator("albas"), fontSize, new Color(0.0f / 255, 119.0f / 255, 6.0f / 255, 1.0f)));
+        FreeTypeFontGenerator albasGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/albas.ttf"));
+        FreeTypeFontGenerator theBoldFontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/theboldfont.ttf"));
+
+        fonts.put("albas", HDFont.getFont(albasGenerator, albasFontSize, new Color(0.0f / 255, 119.0f / 255, 6.0f / 255, 1.0f)));
+        fonts.put("theboldfont", HDFont.getFont(theBoldFontGenerator, theBoldFontSize, new Color(216.0f / 255, 1.0f, 207.0f / 255, 1.0f)));
+
+        albasGenerator.dispose();
+        theBoldFontGenerator.dispose();
     }
 
     @Override
@@ -79,9 +84,6 @@ public abstract class BaseScreen implements Screen {
     @Override
     public void dispose() {
         skin.dispose();
-        for (Map.Entry<String, FreeTypeFontGenerator> fontGen : fontGenerator.entrySet()) {
-            fontGen.getValue().dispose();
-        }
     }
 
     public TicTacChec getGame() {
@@ -90,10 +92,6 @@ public abstract class BaseScreen implements Screen {
 
     public Skin getSkin() {
         return skin;
-    }
-
-    public FreeTypeFontGenerator getFontGenerator(String name) {
-        return fontGenerator.get(name);
     }
 
     public BitmapFont getFont(String name) {

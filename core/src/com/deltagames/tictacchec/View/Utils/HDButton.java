@@ -27,7 +27,7 @@ public class HDButton {
         this.positionY = positionY;
 
         this.endPositionX = this.positionX + font.getBounds(text).width;
-        this.endPositionY = this.endPositionY + font.getBounds(text).height;
+        this.endPositionY = this.positionY + font.getBounds(text).height;
     }
 
     public HDButton(BitmapFont font, String text, boolean centerX, float positionY) {
@@ -49,8 +49,12 @@ public class HDButton {
     }
 
     public boolean isClicked(int screenX, int screenY) {
+
+        float preStartY = (Gdx.graphics.getHeight() - this.endPositionY) + font.getBounds(text).height;
+        float preEndY = (Gdx.graphics.getHeight() - this.positionY) + font.getBounds(text).height;
+
         return (screenX >= this.positionX && screenX <= this.endPositionX) &&
-                (screenY >= this.positionY && screenY <= this.endPositionY);
+                (screenY >= preStartY && screenY <= preEndY);
     }
 
     public float getPositionY() {
