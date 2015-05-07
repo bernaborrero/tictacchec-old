@@ -49,7 +49,7 @@ public class MainMenuScreen extends BaseScreen {
 
         playWithComputerButton.draw(spriteBatch);
         playWithPersonButton.draw(spriteBatch);
-        exitButton.draw(spriteBatch);
+        exitButton.draw(spriteBatch); 
 
         spriteBatch.end();
     }
