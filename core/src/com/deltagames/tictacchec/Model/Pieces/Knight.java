@@ -19,10 +19,10 @@ public class Knight extends Piece {
      * @param color the Color of the Piece
      */
 
-    private final static String IMAGE_PATH="img/Knight.jpg";
+    private final static String IMAGE_PATH="img/Knight.png";
 
-    public Knight(Player player, Coordinates coordinates, Color color) {
-        super(player, coordinates, color, IMAGE_PATH);
+    public Knight(Player player, Coordinates coordinates, Color color, Board board) {
+        super(player, coordinates, color, IMAGE_PATH, board);
     }
 
     @Override

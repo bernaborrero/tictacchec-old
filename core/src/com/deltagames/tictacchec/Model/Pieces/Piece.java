@@ -14,7 +14,7 @@ import com.deltagames.tictacchec.Model.Utils.Color;
  * Abstract class to manage a single piece
  * Created by Bernabé Borrero on 23/04/15.
  */
-public abstract class Piece {
+public abstract class Piece implements Comparable{
 
     private Player player;
     private Coordinates coordinates;
@@ -34,6 +34,7 @@ public abstract class Piece {
         this.color = color;
         this.possibleMoves = new Moves();
         this.inBoard = false;
+
     }
 
     /**
@@ -42,13 +43,10 @@ public abstract class Piece {
      * @param color the Color of the Piece
      * @param imagePath path of the image of the texture
      */
-    public Piece(Player player, Coordinates coordinates, Color color, String imagePath) {
-        this.player = player;
-        this.coordinates = coordinates;
-        this.color = color;
-        this.possibleMoves = new Moves();
-        this.inBoard = false;
+    public Piece(Player player, Coordinates coordinates, Color color, String imagePath, Board board) {
+        this(player,coordinates,color);
         sprite = new Sprite(new Texture(imagePath));
+        sprite.setSize(board.getCellWidth(),board.getCellHeight());
     }
 
     /**
@@ -136,11 +134,38 @@ public abstract class Piece {
         this.inBoard = inBoard;
     }
 
-    public void draw(SpriteBatch batch){
+    public void draw(SpriteBatch batch, Board board){
+        Coordinates c = board.convertCoordinatesToScreen(getCoordinates());
+
+        sprite.setPosition(c.getX(),c.getY());
+        //Gdx.app.log("Details: ",this.getClass().getCanonicalName());
+        //Gdx.app.log("screen coords","x: "+ c.getX()+" y: "+c.getY());
         sprite.draw(batch);
     }
 
     public void dispose(){
         sprite.getTexture().dispose();
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        //- petit
+        // + superior
+        // = 0
+
+        Piece other = (Piece)o;
+        if(other.getColor()==getColor() && isASubClass(this.getClass(),other)){
+            return 0;
+        }else if(other.getColor()==getColor() && !isASubClass(this.getClass(),other)){
+            return -1;
+        }else{
+            return 1;
+        }
+
+    }
+
+    public static boolean isASubClass(Class classTypeWeWant, Object objectWeHave) {
+
+        return classTypeWeWant.isAssignableFrom(objectWeHave.getClass());
     }
 }

@@ -1,6 +1,7 @@
 package com.deltagames.tictacchec.Model.Players;
 
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.deltagames.tictacchec.Model.Board.Board;
 import com.deltagames.tictacchec.Model.Board.Coordinates;
 import com.deltagames.tictacchec.Model.Board.Move;
@@ -220,11 +221,31 @@ public abstract class Player {
         diagonalPositions[diagonalNumber][pos] = value;
     }
 
-    public void createPieces(){
-        pieces[0]= new Pawn(this,new Coordinates(),this.getColor());
-        pieces[1]= new Bishop(this,new Coordinates(),this.getColor());
-        pieces[2]= new Knight(this,new Coordinates(),this.getColor());
-        pieces[3]= new Rook(this,new Coordinates(),this.getColor());
+    public void createPieces(Board board){
+        if(getColor()==Color.WHITE){
+            pieces[0]= new Pawn(this,new Coordinates(0,0),this.getColor(),board);
+            pieces[1]= new Bishop(this,new Coordinates(1,0),this.getColor(),board);
+            pieces[2]= new Knight(this,new Coordinates(2,0),this.getColor(),board);
+            pieces[3]= new Rook(this,new Coordinates(3,0),this.getColor(),board);
+        }else{
+            pieces[0]= new Pawn(this,new Coordinates(0,3),this.getColor(), board);
+
+            pieces[1]= new Bishop(this,new Coordinates(1,3),this.getColor(), board);
+            pieces[2]= new Knight(this,new Coordinates(2,3),this.getColor(),board);
+            pieces[3]= new Rook(this,new Coordinates(3,3),this.getColor(),board);
+        }
+
+        for(int i=0;i<pieces.length;i++){
+            board.initSet(pieces[i]);
+        }
+
     }
+
+    public void draw(SpriteBatch batch, Board board){
+        for(Piece piece: pieces){
+            piece.draw(batch,board);
+        }
+    }
+
 
 }

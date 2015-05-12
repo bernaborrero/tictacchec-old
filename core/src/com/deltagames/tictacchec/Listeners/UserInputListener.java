@@ -1,7 +1,9 @@
 package com.deltagames.tictacchec.Listeners;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.deltagames.tictacchec.Model.Board.Board;
+import com.deltagames.tictacchec.Model.Board.Coordinates;
 import com.deltagames.tictacchec.Model.Board.Moves;
 import com.deltagames.tictacchec.Model.Pieces.Piece;
 import com.deltagames.tictacchec.Model.Players.Player;
@@ -35,12 +37,33 @@ public class UserInputListener extends InputAdapter {
         Piece piece = board.coordinatesToPiece(screenX, screenY);
         if(previousPiece==null){
             checkPreviousPiece(piece);
-        }else{
-            if(piece.getColor()==player.getColor()){
-                checkPreviousPiece(piece);
+            if(previousPiece!=null){
+                Gdx.app.log("previouspiece","is not null omg, x: "+screenX+", y:"+screenY+". Piece x:"+piece.getCoordinates().getX()+", piece y:"+piece.getCoordinates().getY());
             }else{
-                board.set(piece, piece.getCoordinates().getX(),piece.getCoordinates().getY());
+                Gdx.app.log("previouspiece","is null omg");
+                //Gdx.app.log("previouspiece","Screen x: "+screenX+", Screen y:"+screenY);
             }
+        }else{
+            if(piece !=null){
+                if(piece.getColor()==player.getColor()){
+                    checkPreviousPiece(piece);
+                }else{
+                    Gdx.app.log("moure","peça moguda");
+                    Coordinates c = board.screenToCoordinates(screenX, screenY);
+                    board.set(previousPiece,  c.getX(),c.getY());
+                    previousPiece=null;
+                    board.print();
+                }
+
+            }else{
+
+                Coordinates c = board.screenToCoordinates(screenX, screenY);
+                board.set(previousPiece,  c.getX(),c.getY());
+                previousPiece=null;
+                Gdx.app.log("moure","peça moguda");
+                board.print();
+            }
+
         }
 
         return false;
@@ -51,9 +74,14 @@ public class UserInputListener extends InputAdapter {
     and calculates it's possible moves
      */
     private void checkPreviousPiece(Piece piece){
-        if(piece.getColor()==player.getColor()){
-            previousPiece=piece;
-            previousPiece.getValidMoves(board);
+        if(piece==null){
+            Gdx.app.log("previouspiece","piece is null");
+        }
+        if(piece!=null){
+            if(piece.getColor()==player.getColor()){
+                previousPiece=piece;
+                previousPiece.getValidMoves(board);
+            }
         }
     }
 

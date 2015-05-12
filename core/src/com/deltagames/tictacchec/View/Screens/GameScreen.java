@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.deltagames.tictacchec.Model.Board.Board;
 import com.deltagames.tictacchec.Model.Board.Coordinates;
 import com.deltagames.tictacchec.Model.Players.Arnold;
 import com.deltagames.tictacchec.Model.Players.HumanPlayer;
@@ -39,13 +40,19 @@ public class GameScreen extends BaseScreen {
     private Player player1;
     private Player player2;
 
+    //board instance
+    private Board board;
+
     public GameScreen(TicTacChec game, GameMode gameMode, BitmapFont normalFont) {
         super(game);
         this.normalFont = normalFont;
-
         initComponents();
+        //position #0 is for the initial Coordinates
+        //position #1 is for the limit Coordinates
+        Coordinates[] c = calculateBoardCoordinates();
+        board = new Board(c[0],c[1]);
         initPlayers(gameMode);
-
+        //board.print();
     }
 
     /**
@@ -61,6 +68,9 @@ public class GameScreen extends BaseScreen {
     private void initPlayers(GameMode gameMode) {
         player1= createPlayer(GameMode.PERSON);
         player2=createPlayer(gameMode);
+        player1.createPieces(board);
+        player2.createPieces(board);
+
     }
 
     /**
@@ -87,13 +97,8 @@ public class GameScreen extends BaseScreen {
     private void loadSprites() {
         boardTexture= generateTexture("img/awesomeBoard.png");
         boardSprite = new Sprite(boardTexture);
-        //position #0 is for the initial Coordinates
-        //position #1 is for the limit Coordinates
-        Coordinates[] c = calculateBoardCoordinates();
-        //boardSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getWidth());
-        boardSprite.setSize(c[0].getX(), c[1].getY());
-
-        boardSprite.setPosition(0,(Gdx.graphics.getHeight()-c[1].getY()));
+        boardSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getWidth());
+        boardSprite.setPosition(0, (Gdx.graphics.getHeight() - Gdx.graphics.getWidth()) / 2);
     }
 
     /**
@@ -114,7 +119,8 @@ public class GameScreen extends BaseScreen {
 
 
         finalX=Gdx.graphics.getWidth();
-        finalY=Gdx.graphics.getWidth()/2;
+        finalY=Gdx.graphics.getHeight()-((Gdx.graphics.getHeight()-Gdx.graphics.getWidth())/2);
+        Gdx.app.log("limitCoordinates","limit X: "+finalX+", final Y: "+finalY);
         return new Coordinates(finalX, finalY);
     }
 
@@ -126,6 +132,7 @@ public class GameScreen extends BaseScreen {
         int x,y;
         x=0;
         y=(Gdx.graphics.getHeight()-Gdx.graphics.getWidth())/2;
+        Gdx.app.log("initCoordinates","init X: "+x+", init Y: "+y);
         return new Coordinates(x,y);
     }
 
@@ -136,9 +143,11 @@ public class GameScreen extends BaseScreen {
     @Override
     public void render(float delta) {
         super.render(delta);
-
+        player1.move(board,player1,null);
         spriteBatch.begin();
         boardSprite.draw(spriteBatch);
+        player1.draw(spriteBatch,board);
+        player2.draw(spriteBatch,board);
         spriteBatch.end();
         stage.act();
         stage.draw();

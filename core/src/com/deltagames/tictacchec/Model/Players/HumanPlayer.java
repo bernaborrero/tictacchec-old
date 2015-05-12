@@ -19,5 +19,15 @@ public class HumanPlayer extends Player {
             listener= new UserInputListener(this,board);
         }
         Gdx.input.setInputProcessor(listener);
+        /*
+        try {
+            blockingSemaphore.acquire();
+
+            blockingSemaphore.release();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        */
+
     }
 }
